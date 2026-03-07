@@ -1,0 +1,2 @@
+﻿[dotenv@17.3.1] injecting env (6) from .env.local -- tip: ­ƒøí´©Å auth for agents: https://vestauth.com
+Email: danidos@hotmail.com, ID: bb6059e6-b7ac-4d0d-8799-5b30fa53df4a

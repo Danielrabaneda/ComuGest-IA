@@ -1,0 +1,56 @@
+﻿
+> comugest-ia@0.1.0 build
+> next build
+
+Ôû▓ Next.js 16.1.6 (Turbopack)
+- Environments: .env.local
+
+node.exe : ÔÜá The "middleware" file convention is 
+deprecated. Please use "proxy" instead. Learn more: 
+https://nextjs.org/docs/messages/middleware-to-proxy
+En línea: 1 Carácter: 1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program 
+Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (ÔÜá The "mid 
+   dle...leware-to-proxy:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  Creating an optimized production build ...
+Ô£ô Compiled successfully in 4.0s
+  Running TypeScript ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/17) ...
+  Generating static pages using 7 workers (4/17) 
+  Generating static pages using 7 workers (8/17) 
+  Generating static pages using 7 workers (12/17) 
+Ô£ô Generating static pages using 7 workers (17/17) in 537.2ms
+  Finalizing page optimization ...
+
+Route (app)
+Ôöî Ôùï /
+Ôö£ Ôùï /_not-found
+Ôö£ Ôùï /admin
+Ôö£ ãÆ /api/ai/chat
+Ôö£ ãÆ /api/ai/classify-incident
+Ôö£ ãÆ /api/ai/generate-notice
+Ôö£ Ôùï /assistant
+Ôö£ ãÆ /home
+Ôö£ Ôùï /incidents
+Ôö£ ãÆ /incidents/[id]
+Ôö£ Ôùï /incidents/new
+Ôö£ Ôùï /login
+Ôö£ Ôùï /notices
+Ôö£ ãÆ /notices/[id]
+Ôö£ Ôùï /notices/new
+Ôö£ Ôùï /register
+Ôö£ Ôùï /reservations
+Ôöö ãÆ /reservations/book/[id]
+
+
+ãÆ Proxy (Middleware)
+
+Ôùï  (Static)   prerendered as static content
+ãÆ  (Dynamic)  server-rendered on demand
+

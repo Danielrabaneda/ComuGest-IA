@@ -1,0 +1,51 @@
+﻿
+> comugest-ia@0.1.0 build
+> next build
+
+Ôû▓ Next.js 16.1.6 (Turbopack)
+- Environments: .env.local
+
+node.exe : ÔÜá The "middleware" file convention is 
+deprecated. Please use "proxy" instead. Learn more: 
+https://nextjs.org/docs/messages/middleware-to-proxy
+En línea: 1 Carácter: 1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program 
+Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (ÔÜá The  
+   "middle...leware-to-proxy:String) [], RemoteExcep  
+  tion
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  Creating an optimized production build ...
+Ô£ô Compiled successfully in 4.7s
+  Running TypeScript ...
+Failed to compile.
+
+./app/(app)/layout.tsx:222:38
+Type error: Unused '@ts-expect-error' directive.
+
+[0m [90m 220 |[39m                             
+[33m<[39m[33mdiv[39m 
+className[33m=[39m[32m"bg-slate-100 px-4 py-1.5 
+rounded-full border border-slate-200"[39m[33m>[39m
+ [90m 221 |[39m                                 
+[33m<[39m[33mp[39m 
+className[33m=[39m[32m"text-xs font-semibold 
+text-slate-600 truncate max-w-[200px]"[39m[33m>[39m
+[31m[1m>[22m[39m[90m 222 |[39m                  
+                   {[90m/* @ts-expect-error: 
+community relationship is not fully typed in Supabase 
+*/[39m}
+ [90m     |[39m                                     
+ [31m[1m^[22m[39m
+ [90m 223 |[39m                                     
+ƒôì {profile[33m.[39mcommunities[33m?[39m[33m.[3
+9mname}
+ [90m 224 |[39m                                 
+[33m<[39m[33m/[39m[33mp[39m[33m>[39m
+ [90m 225 |[39m                             
+[33m<[39m[33m/[39m[33mdiv[39m[33m>[39m[0m
+Next.js build worker exited with code: 1 and signal: 
+null
