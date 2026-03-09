@@ -1,0 +1,11 @@
+node_modules
+.next
+.git
+.env*
+build_output*
+*.txt
+*.traineddata
+Dockerfile
+.dockerignore
+.vercel
+node_modules
