@@ -21,6 +21,8 @@ import { formatDistanceToNow } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { cn } from '@/lib/utils'
 
+export const dynamic = 'force-dynamic'
+
 export default async function NoticeDetailPage({ params }: { params: { id: string } }) {
     const supabase = await createClient()
 

@@ -3,6 +3,8 @@ import Onboarding from '@/components/community/Onboarding'
 import Dashboard from '@/components/community/Dashboard'
 import { redirect } from 'next/navigation'
 
+export const dynamic = 'force-dynamic'
+
 export default async function HomePage() {
     const supabase = await createClient()
 
