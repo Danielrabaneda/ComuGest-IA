@@ -19,3 +19,17 @@
 2026-03-16T16:46:22Z INF ICMP proxy will use fe80::cf56:b3ab:559b:1db in zone Wi-Fi as source for IPv6
 2026-03-16T16:46:22Z INF Starting metrics server on 127.0.0.1:20241/metrics
 2026-03-16T16:46:22Z INF Registered tunnel connection connIndex=0 connection=1516506b-a663-4ee4-a1b9-db364e864004 event=0 ip=198.41.192.7 location=mad01 protocol=quic
+2026-03-16T18:23:34Z ERR  error="Unable to reach the origin service. The service may be down or it may not be responding to traffic from cloudflared: dial tcp [::1]:3000: connectex: No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión." connIndex=0 event=1 ingressRule=0 originService=http://localhost:3000
+2026-03-16T18:23:34Z ERR Request failed error="Unable to reach the origin service. The service may be down or it may not be responding to traffic from cloudflared: dial tcp [::1]:3000: connectex: No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión." connIndex=0 dest=https://halo-anywhere-fascinating-hose.trycloudflare.com/_next/webpack-hmr?id=Kb0DLv1oCW26gVvoG-4a7 event=0 ip=198.41.192.7 type=ws
+2026-03-16T18:23:34Z ERR  error="Unable to reach the origin service. The service may be down or it may not be responding to traffic from cloudflared: dial tcp [::1]:3000: connectex: No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión." connIndex=0 event=1 ingressRule=0 originService=http://localhost:3000
+2026-03-16T18:23:34Z ERR Request failed error="Unable to reach the origin service. The service may be down or it may not be responding to traffic from cloudflared: dial tcp [::1]:3000: connectex: No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión." connIndex=0 dest=https://halo-anywhere-fascinating-hose.trycloudflare.com/_next/webpack-hmr?id=QzIXkcWqkxSA0GjKSY8oT event=0 ip=198.41.192.7 type=ws
+2026-03-16T18:23:35Z INF Initiating graceful shutdown due to signal terminated ...
+2026-03-16T18:23:35Z ERR failed to run the datagram handler error="context canceled" connIndex=0 event=0 ip=198.41.192.7
+2026-03-16T18:23:35Z ERR failed to serve tunnel connection error="accept stream listener encountered a failure while serving" connIndex=0 event=0 ip=198.41.192.7
+2026-03-16T18:23:35Z ERR Serve tunnel error error="accept stream listener encountered a failure while serving" connIndex=0 event=0 ip=198.41.192.7
+2026-03-16T18:23:35Z INF Retrying connection in up to 1s connIndex=0 event=0 ip=198.41.192.7
+2026-03-16T18:23:35Z ERR Connection terminated connIndex=0
+2026-03-16T18:23:35Z ERR no more connections active and exiting
+2026-03-16T18:23:35Z INF Tunnel server stopped
+2026-03-16T18:23:35Z INF Metrics server stopped
+^C
