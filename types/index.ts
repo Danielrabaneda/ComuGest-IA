@@ -18,9 +18,11 @@ export interface Community {
   id: string
   name: string
   address: string | null
+  nif: string | null
   code: string // Matches database
   plan: Plan
   subscription_status: SubscriptionStatus
+  trial_ends_at: string | null
   created_at: string
 }
 
@@ -30,6 +32,8 @@ export interface Profile {
   full_name: string | null
   email: string | null
   phone: string | null
+  office_address: string | null
+  office_hours: string | null
   role: UserRole
   unit: string | null
   avatar_url: string | null
@@ -99,6 +103,7 @@ export interface Space {
   closing_time: string
   reservation_duration: number
   max_capacity: number
+  available_days: string[] | null
   created_at: string
 }
 

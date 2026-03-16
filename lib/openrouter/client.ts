@@ -141,7 +141,8 @@ export const AI_PROMPTS = {
     GENERATE_NOTICE: (draft: string) => `
     Eres el secretario IA de una comunidad de vecinos.
     Toma este borrador y devuelve UNICAMENTE un objeto JSON con:
-    - body: El texto formal, profesional y claro para el comunicado.
+    - title: Un título corto y descriptivo para el comunicado.
+    - formal_body: El texto formal, profesional y claro para el comunicado.
     - short_body: Una versión muy corta e impactante para WhatsApp o SMS.
 
     Borrador:

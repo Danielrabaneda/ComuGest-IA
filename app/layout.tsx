@@ -9,6 +9,24 @@ const outfit = Outfit({ subsets: ["latin"], variable: '--font-outfit' });
 export const metadata: Metadata = {
   title: "ComuGest IA | Tu Secretario Virtual de Comunidad",
   description: "La plataforma definitiva para la gestión de comunidades de vecinos y garajes potenciada por IA.",
+  manifest: '/manifest.json',
+  themeColor: '#8b5cf6',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'ComuGest IA',
+  },
+  icons: {
+    icon: '/logo-icon.png',
+    apple: '/logo-icon.png',
+  },
+};
+
+export const viewport = {
+  themeColor: '#8b5cf6',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
 };
 
 export default function RootLayout({

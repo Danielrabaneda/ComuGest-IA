@@ -12,9 +12,16 @@ export default async function IncidentPage({ params }: { params: Promise<{ id: s
         .from('incidents')
         .select(`
       *,
-      profiles:created_by(id, full_name, avatar_url, role),
+      profiles(id, full_name, avatar_url, role),
       attachments:incident_attachments(*),
-      comments:incident_comments(*, profiles:user_id(full_name, avatar_url))
+      comments:incident_comments(
+        id,
+        incident_id,
+        user_id:author_id,
+        body:message,
+        created_at,
+        profiles(full_name, avatar_url)
+      )
     `)
         .eq('id', id)
         .single()

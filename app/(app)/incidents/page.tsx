@@ -5,14 +5,10 @@ export const dynamic = 'force-dynamic'
 import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import {
-    AlertCircle,
     Search,
     Plus,
     ChevronRight,
-    Filter,
     Clock,
-    MoreHorizontal,
-    CheckCircle2,
     AlertTriangle
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -35,26 +31,31 @@ export default function IncidentsPage() {
 
     useEffect(() => {
         const fetchIncidents = async () => {
-            const { data: { user } } = await supabase.auth.getUser()
-            if (!user) return
+            try {
+                const { data: { user } } = await supabase.auth.getUser()
+                if (!user) return
 
-            let query = supabase
-                .from('incidents')
-                .select(`*, profiles(full_name)`)
-                .order('created_at', { ascending: false })
+                let query = supabase
+                    .from('incidents')
+                    .select(`*, profiles(full_name)`)
+                    .order('created_at', { ascending: false })
 
-            if (filter !== 'all') {
-                query = query.eq('status', filter)
+                if (filter !== 'all') {
+                    query = query.eq('status', filter)
+                }
+
+                const { data, error } = await query
+
+                if (error) {
+                    console.error('Error fetching incidents:', error)
+                } else {
+                    setIncidents(data as (Incident & { profiles: { full_name: string } })[])
+                }
+            } catch (err) {
+                console.error('Unexpected error:', err)
+            } finally {
+                setIsLoading(false)
             }
-
-            const { data, error } = await query
-
-            if (error) {
-                console.error('Error fetching incidents:', error)
-            } else {
-                setIncidents(data as any[])
-            }
-            setIsLoading(false)
         }
 
         fetchIncidents()
@@ -144,8 +145,14 @@ export default function IncidentsPage() {
                     </Card>
                 ) : (
                     filteredIncidents.map((incident) => (
-                        <Link key={incident.id} href={`/incidents/${incident.id}`}>
-                            <Card className="hover:shadow-2xl hover:shadow-primary/5 transition-all border-none bg-white shadow-lg shadow-slate-200/50 rounded-2xl overflow-hidden group">
+                        <Link 
+                            key={incident.id} 
+                            href={`/incidents/${incident.id}`}
+                            className="block"
+                            role="link"
+                            aria-label={`Ver detalle de incidencia: ${incident.title}`}
+                        >
+                            <Card className="hover:shadow-2xl hover:shadow-primary/5 transition-all border-none bg-white shadow-lg shadow-slate-200/50 rounded-2xl overflow-hidden group cursor-pointer">
                                 <CardContent className="p-0">
                                     <div className="flex flex-col md:flex-row md:items-center">
                                         {/* Status vertical bar */}

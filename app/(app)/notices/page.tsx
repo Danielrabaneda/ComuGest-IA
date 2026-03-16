@@ -8,28 +8,27 @@ import {
     Megaphone,
     Search,
     Plus,
-    ChevronRight,
     Clock,
-    User,
-    Info,
-    BadgeInfo,
-    ArrowRight
+    ArrowRight,
+    Trash2,
+    Loader2
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import { Notice } from '@/types'
 import Link from 'next/link'
 import { formatDistanceToNow } from 'date-fns'
 import { es } from 'date-fns/locale'
-import { cn } from '@/lib/utils'
+import { toast } from 'sonner'
 
 export default function NoticesPage() {
     const [notices, setNotices] = useState<Notice[]>([])
     const [search, setSearch] = useState('')
     const [isLoading, setIsLoading] = useState(true)
     const [userRole, setUserRole] = useState('')
+    const [deletingId, setDeletingId] = useState<string | null>(null)
 
     const supabase = createClient()
 
@@ -38,18 +37,24 @@ export default function NoticesPage() {
             const { data: { user } } = await supabase.auth.getUser()
             if (!user) return
 
-            const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single()
+            const { data: profile } = await supabase.from('profiles').select('role, community_id').eq('id', user.id).single()
             setUserRole(profile?.role || 'neighbor')
+
+            if (!profile?.community_id) {
+                setIsLoading(false)
+                return
+            }
 
             const { data, error } = await supabase
                 .from('notices')
-                .select(`*, profiles:created_by(full_name)`)
+                .select(`*, profiles(full_name)`)
+                .eq('community_id', profile.community_id)
                 .order('created_at', { ascending: false })
 
             if (error) {
                 console.error('Error fetching notices:', error)
             } else {
-                setNotices(data as any[])
+                setNotices(data as (Notice & { profiles: { full_name: string } })[])
             }
             setIsLoading(false)
         }
@@ -61,6 +66,24 @@ export default function NoticesPage() {
         n.title.toLowerCase().includes(search.toLowerCase()) ||
         n.body.toLowerCase().includes(search.toLowerCase())
     )
+
+    const handleDeleteNotice = async (e: React.MouseEvent, id: string) => {
+        e.preventDefault()
+        e.stopPropagation()
+        if (!confirm('¿Estás seguro de que deseas eliminar este comunicado?')) return
+        setDeletingId(id)
+        try {
+            const { error } = await supabase.from('notices').delete().eq('id', id)
+            if (error) throw error
+            setNotices(notices.filter(n => n.id !== id))
+            toast.success('Comunicado eliminado con éxito')
+        } catch (error) {
+            const message = error instanceof Error ? error.message : 'Error desconocido'
+            toast.error('Error al eliminar el comunicado: ' + message)
+        } finally {
+            setDeletingId(null)
+        }
+    }
 
     const isAdmin = userRole === 'admin' || userRole === 'president'
 
@@ -95,10 +118,17 @@ export default function NoticesPage() {
                     Array(3).fill(0).map((_, i) => (
                         <div key={i} className="h-48 bg-slate-200 rounded-3xl animate-pulse" />
                     ))
+                ) : notices.length === 0 ? (
+                    <Card className="border-dashed border-2 py-20 bg-transparent shadow-none flex flex-col items-center justify-center text-slate-400">
+                        <Megaphone size={48} className="mb-4 opacity-20" />
+                        <p className="text-xl font-bold italic opacity-40">
+                            {userRole === 'neighbor' ? "No hay avisos actualmente." : "No se encontraron comunicados para tu comunidad."}
+                        </p>
+                    </Card>
                 ) : filteredNotices.length === 0 ? (
                     <Card className="border-dashed border-2 py-20 bg-transparent shadow-none flex flex-col items-center justify-center text-slate-400">
-                        <Megaphone size={64} className="mb-4 opacity-10" />
-                        <p className="text-xl font-bold italic opacity-40">Sin comunicados aún.</p>
+                        <Megaphone size={48} className="mb-4 opacity-20" />
+                        <p className="text-xl font-bold italic opacity-40">No se encontraron comunicados que coincidan con tu búsqueda.</p>
                     </Card>
                 ) : (
                     filteredNotices.map((notice) => (
@@ -132,8 +162,20 @@ export default function NoticesPage() {
                                                 </div>
                                                 <span className="text-xs font-bold text-slate-400 uppercase tracking-widest italic">{notice.profiles?.full_name}</span>
                                             </div>
-                                            <div className="flex items-center gap-2 text-primary font-black text-sm uppercase italic tracking-wider">
-                                                LEER MÁS <ArrowRight size={18} />
+                                            <div className="flex items-center gap-3">
+                                                {isAdmin && (
+                                                    <Button
+                                                        variant="ghost"
+                                                        disabled={deletingId === notice.id}
+                                                        onClick={(e) => handleDeleteNotice(e, notice.id)}
+                                                        className="h-10 w-10 p-0 rounded-xl text-red-500 hover:text-red-600 hover:bg-red-50"
+                                                    >
+                                                        {deletingId === notice.id ? <Loader2 size={18} className="animate-spin" /> : <Trash2 size={18} />}
+                                                    </Button>
+                                                )}
+                                                <div className="flex items-center gap-2 text-primary font-black text-sm uppercase italic tracking-wider">
+                                                    LEER MÁS <ArrowRight size={18} />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

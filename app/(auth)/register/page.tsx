@@ -3,7 +3,8 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { Loader2, Zap } from 'lucide-react'
+import { Loader2 } from 'lucide-react'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -14,6 +15,7 @@ export default function RegisterPage() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [fullName, setFullName] = useState('')
+    const [communityCode, setCommunityCode] = useState('')
     const [isLoading, setIsLoading] = useState(false)
 
     const router = useRouter()
@@ -30,18 +32,23 @@ export default function RegisterPage() {
                 options: {
                     data: {
                         full_name: fullName,
+                        community_code: communityCode,
                     },
                     emailRedirectTo: `${window.location.origin}/auth/callback`,
                 },
             })
 
             if (error) {
-                toast.error(error.message)
+                let message = error.message
+                if (message.includes('already registered')) {
+                    message = 'Este correo ya está registrado en la plataforma.'
+                }
+                toast.error(message)
             } else {
                 toast.success('¡Registro exitoso! Por favor, verifica tu email o inicia sesión.')
                 router.push('/login')
             }
-        } catch (err) {
+        } catch {
             toast.error('Ocurrió un error inesperado al registrarse.')
         } finally {
             setIsLoading(false)
@@ -52,14 +59,15 @@ export default function RegisterPage() {
         <div className="flex min-h-screen items-center justify-center p-4 bg-slate-50">
             <Card className="w-full max-w-md shadow-xl border-none">
                 <CardHeader className="space-y-1 text-center">
-                    <div className="flex justify-center mb-4">
-                        <div className="bg-primary p-3 rounded-2xl text-white shadow-lg shadow-primary/20">
-                            <Zap size={32} />
+                    <h1 className="sr-only">Register</h1>
+                    <div className="flex justify-center mb-8">
+                        <div className="bg-white p-6 rounded-[3rem] shadow-2xl border border-slate-100">
+                            <Image src="/logo.png" alt="ComuGest IA Logo" width={200} height={200} className="object-contain" />
                         </div>
                     </div>
                     <CardTitle className="text-3xl font-bold tracking-tight">Crea tu cuenta</CardTitle>
                     <CardDescription className="text-lg">
-                        Únete a ComuGest IA y mejora tu comunidad
+                        Únete a ComuGest<span className="text-[#41B7C1]"> - IA</span> y mejora tu comunidad
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -95,6 +103,16 @@ export default function RegisterPage() {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
+                                className="h-11"
+                            />
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="communityCode">Código de Comunidad (Opcional)</Label>
+                            <Input
+                                id="communityCode"
+                                placeholder="TEST1234"
+                                value={communityCode}
+                                onChange={(e) => setCommunityCode(e.target.value)}
                                 className="h-11"
                             />
                         </div>

@@ -12,19 +12,19 @@ import {
     Info,
     ChevronRight,
     TrendingUp,
-    LayoutGrid,
     Zap
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Profile, Incident, Notice, Reservation } from '@/types'
+import { Profile, Incident, Notice, Community } from '@/types'
 import Link from 'next/link'
 import { formatDistanceToNow } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { cn } from '@/lib/utils'
+import { PLAN_FEATURES } from '@/types'
 
-export default function Dashboard({ profile }: { profile: Profile & { communities: any } }) {
+export default function Dashboard({ profile }: { profile: Profile & { communities: Community | null } }) {
     const [stats, setStats] = useState({
         incidentsOpen: 0,
         noticesActive: 0,
@@ -32,7 +32,7 @@ export default function Dashboard({ profile }: { profile: Profile & { communitie
     })
     const [recentIncidents, setRecentIncidents] = useState<Incident[]>([])
     const [recentNotices, setRecentNotices] = useState<Notice[]>([])
-    const [isLoading, setIsLoading] = useState(true)
+
 
     const supabase = createClient()
 
@@ -62,16 +62,16 @@ export default function Dashboard({ profile }: { profile: Profile & { communitie
                     .gte('start_time', new Date().toISOString())
             ])
 
-            if (incidentsRes.data) setRecentIncidents(incidentsRes.data as any)
-            if (noticesRes.data) setRecentNotices(noticesRes.data as any)
+            if (incidentsRes.data) setRecentIncidents(incidentsRes.data as Incident[])
+            if (noticesRes.data) setRecentNotices(noticesRes.data as Notice[])
 
             setStats({
-                incidentsOpen: incidentsRes.data?.filter((i: any) => i.status !== 'closed').length || 0,
+                incidentsOpen: (incidentsRes.data as Incident[])?.filter((i) => i.status !== 'closed').length || 0,
                 noticesActive: noticesRes.data?.length || 0,
                 reservationsNext: reservationsRes.count || 0
             })
 
-            setIsLoading(false)
+
         }
 
         fetchDashboardData()
@@ -141,7 +141,15 @@ export default function Dashboard({ profile }: { profile: Profile & { communitie
                     </CardFooter>
                 </Card>
 
-                <Card className="bg-white border-none shadow-xl shadow-slate-200/50 rounded-2xl group overflow-hidden relative">
+                <Card className={cn(
+                    "border-none shadow-xl shadow-slate-200/50 rounded-2xl group overflow-hidden relative",
+                    !PLAN_FEATURES[profile.communities?.plan || 'basic'].reservations ? "bg-slate-50 opacity-80" : "bg-white"
+                )}>
+                    {!PLAN_FEATURES[profile.communities?.plan || 'basic'].reservations && (
+                        <div className="absolute inset-0 bg-slate-900/5 backdrop-blur-[1px] z-10 flex items-center justify-center">
+                            <Badge className="bg-slate-900 text-white font-black italic border-none px-3 py-1 scale-110">PRO</Badge>
+                        </div>
+                    )}
                     <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-50 rounded-full -mr-16 -mt-16 group-hover:scale-110 transition-transform duration-500" />
                     <CardHeader className="pb-2 relative">
                         <div className="bg-emerald-100/50 p-2.5 w-fit rounded-xl text-emerald-600 mb-4 ring-4 ring-emerald-50">
@@ -156,9 +164,15 @@ export default function Dashboard({ profile }: { profile: Profile & { communitie
                         </div>
                     </CardContent>
                     <CardFooter className="pt-2">
-                        <Link href="/reservations" className="text-xs font-bold text-emerald-600 flex items-center gap-1.5 hover:underline">
-                            RESERVAR ESPACIO <ChevronRight size={14} />
-                        </Link>
+                        {PLAN_FEATURES[profile.communities?.plan || 'basic'].reservations ? (
+                            <Link href="/reservations" className="text-xs font-bold text-emerald-600 flex items-center gap-1.5 hover:underline uppercase">
+                                RESERVAR ESPACIO <ChevronRight size={14} />
+                            </Link>
+                        ) : (
+                            <span className="text-xs font-bold text-slate-400 flex items-center gap-1.5 uppercase">
+                                NO DISPONIBLE EN BÁSICO
+                            </span>
+                        )}
                     </CardFooter>
                 </Card>
             </div>
@@ -257,23 +271,41 @@ export default function Dashboard({ profile }: { profile: Profile & { communitie
                         )}
 
                         {/* IA Secretary Promo Card */}
-                        <Card className="bg-slate-900 text-white rounded-2xl overflow-hidden relative shadow-2xl shadow-slate-900/30">
+                        <Card className={cn(
+                            "text-white rounded-2xl overflow-hidden relative shadow-2xl shadow-slate-900/30",
+                            PLAN_FEATURES[profile.communities?.plan || 'basic'].ai_chat ? "bg-slate-900" : "bg-slate-800"
+                        )}>
                             <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top_right,rgba(60,60,246,0.2),transparent_70%)]" />
                             <CardHeader className="relative">
-                                <div className="bg-primary p-2 w-fit rounded-xl mb-4 shadow-lg shadow-primary/20">
-                                    <Zap size={20} className="fill-white" />
+                                <div className="flex items-center justify-between mb-4">
+                                    <div className="bg-primary p-2 w-fit rounded-xl shadow-lg shadow-primary/20">
+                                        <Zap size={20} className="fill-white" />
+                                    </div>
+                                    {!PLAN_FEATURES[profile.communities?.plan || 'basic'].ai_chat && (
+                                        <Badge className="bg-amber-500 text-slate-900 font-black italic border-none px-2 py-0.5 text-[10px]">MEJORAR A PRO</Badge>
+                                    )}
                                 </div>
                                 <CardTitle className="text-xl font-extrabold tracking-tight">Secretario IA</CardTitle>
                                 <CardDescription className="text-slate-400">
-                                    Pregúntame sobre normas, horarios o solicita gestiones.
+                                    {PLAN_FEATURES[profile.communities?.plan || 'basic'].ai_chat 
+                                        ? 'Pregúntame sobre normas, horarios o solicita gestiones.'
+                                        : 'La gestión avanzada con Inteligencia Artificial está disponible en el Plan Pro.'}
                                 </CardDescription>
                             </CardHeader>
                             <CardFooter className="relative">
-                                <Link href="/assistant" className="w-full">
-                                    <Button className="w-full h-10 rounded-xl font-bold bg-white text-slate-900 hover:bg-slate-100">
-                                        Hablar ahora
-                                    </Button>
-                                </Link>
+                                {PLAN_FEATURES[profile.communities?.plan || 'basic'].ai_chat ? (
+                                    <Link href="/assistant" className="w-full">
+                                        <Button className="w-full h-10 rounded-xl font-bold bg-white text-slate-900 hover:bg-slate-100 transition-transform active:scale-95">
+                                            Hablar ahora
+                                        </Button>
+                                    </Link>
+                                ) : (
+                                    <Link href="/admin" className="w-full">
+                                        <Button className="w-full h-10 rounded-xl font-bold bg-amber-500 text-slate-900 hover:bg-amber-400 border-none transition-transform active:scale-95">
+                                            Mejorar mi Plan
+                                        </Button>
+                                    </Link>
+                                )}
                             </CardFooter>
                         </Card>
                     </div>

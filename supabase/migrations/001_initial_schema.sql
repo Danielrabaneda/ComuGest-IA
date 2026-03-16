@@ -14,7 +14,7 @@ create table if not exists public.communities (
   name text not null,
   address text,
   code text unique not null,
-  plan text not null default 'basic' check (plan in ('basic', 'pro')),
+  plan text not null default 'basic' check (plan in ('basic', 'pro', 'admin')),
   subscription_status text not null default 'trial' check (
     subscription_status in ('active', 'trial', 'paused', 'cancelled')
   ),
@@ -111,7 +111,13 @@ create table if not exists public.spaces (
   community_id uuid not null references public.communities(id) on delete cascade,
   name text not null,
   description text,
+  image_url text,
   rules text,
+  opening_time time not null default '09:00:00',
+  closing_time time not null default '22:00:00',
+  reservation_duration integer not null default 60,
+  max_capacity integer not null default 10,
+  available_days text [] default array ['L', 'M', 'X', 'J', 'V', 'S', 'D']::text [],
   created_at timestamptz not null default now()
 );
 -- ===================
@@ -416,7 +422,7 @@ insert into storage.buckets (id, name, public)
 values (
     'incident-attachments',
     'incident-attachments',
-    false
+    true
   ) on conflict (id) do nothing;
 create policy "Incident attachments: upload autenticado" on storage.objects for
 insert with check (
@@ -426,5 +432,24 @@ insert with check (
 create policy "Incident attachments: leer de mi comunidad" on storage.objects for
 select using (
     bucket_id = 'incident-attachments'
+    and auth.role() = 'authenticated'
+  );
+-- ======================================================
+-- Storage: bucket para imágenes de espacios
+-- ======================================================
+insert into storage.buckets (id, name, public)
+values (
+    'space-images',
+    'space-images',
+    true
+  ) on conflict (id) do nothing;
+create policy "Space images: upload autenticado" on storage.objects for
+insert with check (
+    bucket_id = 'space-images'
+    and auth.role() = 'authenticated'
+  );
+create policy "Space images: leer de mi comunidad" on storage.objects for
+select using (
+    bucket_id = 'space-images'
     and auth.role() = 'authenticated'
   );

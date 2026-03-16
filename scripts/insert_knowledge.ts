@@ -1,0 +1,137 @@
+import { createClient } from '@supabase/supabase-js'
+import * as dotenv from 'dotenv'
+dotenv.config({ path: '.env.local' })
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+)
+
+const knowledgeBase = `TEMA: Ruidos, fiestas y horarios de descanso [QUÉ DICE LA LEY]: El artículo 7.2 de la Ley de Propiedad Horizontal (LPH) establece claramente que a los propietarios y ocupantes no les está permitido desarrollar actividades molestas, insalubres, nocivas, peligrosas o ilícitas en la vivienda o en el resto del inmueble
+. El ruido persistente o las fiestas constantes se encuadran en esta categoría cuando superan los límites razonables de convivencia y el derecho al descanso
+.
+La normativa estatal y las ordenanzas municipales fijan los horarios y los límites de decibelios permitidos, diferenciando habitualmente entre el horario diurno (suele ser de 08:00 a 22:00 horas) y el horario nocturno (de 22:00 a 08:00 horas), siendo este último mucho más estricto
+.
+Ante estas situaciones, el presidente de la comunidad debe realizar un requerimiento formal para que cese la actividad. Si el infractor persiste, la Junta de Propietarios puede autorizar una acción judicial de cesación que, en casos graves, puede privar al infractor del derecho al uso de la vivienda por un periodo de hasta tres años
+. [PREGUNTAS FRECUENTES]:
+P: ¿Qué nivel de ruido se considera legal durante la noche? R: Depende de la ordenanza de tu municipio, pero por lo general el límite en horario nocturno (de 22:00 a 08:00) dentro de un dormitorio no debe superar los 25 a 30 decibelios
+.
+P: ¿Qué pasos debo seguir si mi vecino hace fiestas de madrugada habitualmente? R: Primero intenta la vía amistosa; si falla, avisa al presidente para que envíe un requerimiento fehaciente (burofax) exigiendo el cese. Si el ruido continúa, la comunidad puede denunciarlo judicialmente
+.
+
+--------------------------------------------------------------------------------
+TEMA: Obras, reformas en casa y escombros [QUÉ DICE LA LEY]: Según el artículo 7.1 de la LPH, el propietario de un piso o local puede modificar los elementos arquitectónicos e instalaciones de su vivienda siempre y cuando no menoscabe o altere la seguridad del edificio, su estructura general, su configuración o estado exterior, ni perjudique los derechos de otros propietarios
+.
+Antes de iniciar cualquier reforma, la ley exige la obligación de dar cuenta de tales obras previamente a quien represente a la comunidad (el presidente o el administrador)
+. En el resto del inmueble (zonas comunes) no se puede realizar alteración alguna
+.
+Además, la normativa de convivencia y los reglamentos de régimen interior regulan la gestión de la obra. Los escombros no pueden almacenarse en las zonas comunes y los trabajos ruidosos deben respetar estrictamente los horarios establecidos por las ordenanzas municipales para no alterar la paz del edificio
+. [PREGUNTAS FRECUENTES]:
+P: ¿Tengo que pedir permiso a la comunidad para tirar un tabique dentro de mi casa? R: Si el tabique no afecta a un muro de carga, a la estructura general ni altera elementos comunes, no necesitas aprobación de la Junta, pero sí es obligatorio comunicarlo previamente al presidente de la comunidad
+.
+P: ¿Puedo dejar los sacos de escombros en el rellano del portal durante unos días? R: No, los reglamentos de régimen interior prohíben usar las zonas comunes (como rellanos o pasillos) como zonas de acopio de materiales o escombros
+.
+
+--------------------------------------------------------------------------------
+TEMA: Uso de zonas comunes (patios, azoteas, pasillos, portal) [QUÉ DICE LA LEY]: El artículo 9.1.a de la LPH dicta que es obligación de cada propietario respetar las instalaciones generales de la comunidad y demás elementos comunes, haciendo un uso adecuado de los mismos y evitando en todo momento que se causen daños o desperfectos
+.
+El uso y disfrute de los elementos comunes (vestíbulos, pasillos, patios, cubiertas, etc.) corresponde a todos los propietarios y debe adecuarse al destino establecido, sin perjudicar el interés de la comunidad
+. Ningún vecino puede realizar obras ni alteraciones en ellos sin un acuerdo mayoritario o unánime de la Junta
+.
+Para regular los detalles de la convivencia diaria, el artículo 6 de la LPH permite establecer un Reglamento de Régimen Interior. Es este documento el que suele dictar prohibiciones comunes como no tender ropa en las fachadas exteriores, no dejar bolsas de basura en el descansillo o no obstruir las vías de evacuación con objetos personales
+. [PREGUNTAS FRECUENTES]:
+P: ¿Puedo aparcar mi bicicleta o dejar el carrito del bebé en el rellano de la escalera? R: No, las zonas comunes no se pueden utilizar como trastero privado ni se puede obstaculizar el paso, garantizando así la limpieza, el orden y la seguridad en la evacuación
+.
+P: Vivo en un bajo y tengo el uso exclusivo del patio interior, ¿puedo techarlo por mi cuenta? R: No. Aunque tengas el uso y disfrute exclusivo, el patio sigue siendo un elemento común. Cualquier alteración o cerramiento requiere el acuerdo previo de la Junta de Propietarios
+.
+
+--------------------------------------------------------------------------------
+TEMA: Mascotas y animales domésticos [QUÉ DICE LA LEY]: La Ley de Propiedad Horizontal no prohíbe explícitamente la tenencia de animales domésticos en los elementos privativos. Prohibir tener una mascota dentro del piso es contrario a la ley, pero la comunidad sí puede actuar (según el artículo 7.2 de la LPH) si la mascota causa ruidos persistentes, problemas de insalubridad o peligro
+.
+Lo que la comunidad sí puede regular ampliamente, mediante sus normas de régimen interior, es la presencia de los animales en los espacios compartidos. Se puede imponer que los perros vayan atados con correa, prohibir su entrada en zonas infantiles, jardines, piscinas o, incluso, prohibir el uso del ascensor con mascotas si se considera una actividad molesta o insalubre
+.
+Los dueños son plenamente responsables de evitar ruidos nocturnos (como ladridos constantes) y de recoger cualquier excremento o suciedad, manteniendo la salubridad y la convivencia pacífica
+. [PREGUNTAS FRECUENTES]:
+P: ¿Pueden los estatutos o la comunidad prohibirme tener un perro en mi vivienda? R: No, la comunidad no puede prohibirte tener mascotas en tu domicilio privado, a menos que generen molestias graves y demostrables o problemas de salubridad
+.
+P: ¿Puede la comunidad obligarme a llevar a mi perro con correa por el pasillo y el portal? R: Sí, las normas de convivencia interna pueden (y suelen) exigir que las mascotas transiten sujetas con correa por las zonas comunes para garantizar la seguridad del resto de vecinos
+.
+
+--------------------------------------------------------------------------------
+TEMA: Morosidad y deuda [QUÉ DICE LA LEY]: Contribuir a los gastos generales con arreglo a la cuota de participación es una de las obligaciones principales de los propietarios (Art. 9.1.e LPH)
+. Si un propietario incurre en morosidad, la ley establece de inmediato que queda privado de su derecho al voto en las juntas de propietarios, aunque conserva su derecho a asistir y participar en las deliberaciones (Art. 15.2 LPH)
+.
+Para endurecer el control contra los impagos, el artículo 21 de la LPH permite a las comunidades acordar medidas disuasorias frente a la morosidad. Estas incluyen el establecimiento de intereses superiores al interés legal y la privación temporal del uso de servicios o instalaciones comunes (por ejemplo, piscinas o pistas deportivas), siempre que no afecten a la habitabilidad básica del inmueble y no tengan carácter retroactivo
+.
+Para reclamar la deuda, la Junta debe aprobar la liquidación y certificarla. La comunidad puede acudir a un proceso monitorio especial e incluso solicitar el embargo preventivo de bienes. Cabe destacar que publicar la lista de morosos en el tablón de anuncios solo es legal si fracasa la notificación personal, para no vulnerar la Ley de Protección de Datos
+. [PREGUNTAS FRECUENTES]:
+P: ¿La comunidad puede cortarme el agua o impedirme usar el ascensor por no pagar las cuotas? R: No. Se pueden limitar instalaciones comunes no esenciales (como la piscina o el gimnasio), pero es completamente ilegal cortar suministros o servicios que afecten a la habitabilidad y derechos básicos de la vivienda
+.
+P: Si compro un piso que tiene deudas con la comunidad, ¿quién debe pagarlas? R: El comprador responde con el propio inmueble adquirido de las deudas del año en curso y de los tres años naturales anteriores
+. Por ello es vital pedir el certificado de deuda antes de la compra
+.
+
+--------------------------------------------------------------------------------
+TEMA: Alteración de fachadas (toldos, aires acondicionados, cerramientos) [QUÉ DICE LA LEY]: El artículo 7.1 de la LPH prohíbe terminantemente a cualquier propietario alterar la estructura general, la configuración o el estado exterior del edificio
+. La fachada es un elemento común, por lo que cualquier modificación que impacte en su estética o integridad arquitectónica requiere autorización comunitaria
+.
+Para obras que impliquen la modificación de la envolvente (como el cerramiento de terrazas y balcones), la LPH en su artículo 10.3.b exige la aprobación previa por una mayoría de las tres quintas partes (3/5) del total de los propietarios que, a su vez, representen las 3/5 partes de las cuotas de participación
+.
+En el caso de aparatos de aire acondicionado o toldos, los tribunales consideran que afectan a la estética exterior. Muchas comunidades regulan en sus estatutos o normas de régimen interior las características permitidas (color de toldos, ubicación de compresores) para mantener la uniformidad, siendo necesario solicitar permiso a la comunidad si no existe un acuerdo previo que lo avale
+. [PREGUNTAS FRECUENTES]:
+P: ¿Puedo cerrar la terraza de mi vivienda por mi cuenta? R: No, cerrar una terraza altera la fachada (elemento común). Necesitas que la Junta de Propietarios lo apruebe con una mayoría de 3/5 partes
+.
+P: Quiero instalar el compresor del aire acondicionado en la fachada exterior, ¿puedo hacerlo libremente? R: No, necesitas autorización de la comunidad, ya que altera la configuración exterior. Si existen normas internas sobre dónde colocarlos (por ejemplo, en azoteas o patios interiores específicos), deberás acatarlas
+.
+
+--------------------------------------------------------------------------------
+TEMA: Derramas y cuotas extraordinarias [QUÉ DICE LA LEY]: Todos los propietarios tienen la obligación de contribuir a los gastos generales y derramas con arreglo a su cuota de participación (Art. 9.1.e LPH)
+. Existen diferencias importantes según el tipo de obra a financiar: las obras necesarias para el adecuado mantenimiento, conservación, seguridad y accesibilidad universal del inmueble tienen carácter obligatorio y no requieren acuerdo previo de la Junta
+. Las derramas para su pago son de obligado cumplimiento para todos.
+Dentro de las obras de accesibilidad (como poner rampa o ascensor), si son solicitadas por mayores de 70 años o personas con discapacidad, son obligatorias para toda la comunidad siempre que el importe anual repercutido no exceda de doce mensualidades ordinarias de gastos comunes
+.
+Por el contrario, el artículo 17.4 de la LPH protege a los vecinos ante obras de mejora que no son estrictamente necesarias para la conservación o habitabilidad. Si el coste de dicha mejora excede el importe de tres mensualidades ordinarias de gastos comunes, el propietario disidente (el que vota en contra) no resultará obligado a pagarla, ni se modificará su cuota
+. [PREGUNTAS FRECUENTES]:
+P: Vivo en un bajo y no uso el ascensor, ¿estoy obligado a pagar la derrama para instalarlo o arreglarlo? R: Sí, la supresión de barreras arquitectónicas y las obras necesarias son de carácter obligatorio. Todos los propietarios deben pagar según su coeficiente de participación, independientemente del uso que le den
+.
+P: La comunidad quiere poner una piscina nueva y yo he votado en contra. ¿Tengo que pagar esa derrama? R: Si se trata de una mejora no necesaria para la habitabilidad y la cuota de instalación excede el importe de tres mensualidades ordinarias, como propietario disidente no estás obligado a pagarla (aunque no podrás disfrutar de ella)
+.
+
+--------------------------------------------------------------------------------
+TEMA: Uso del garaje (plazas, trasteros, lavar el coche) [QUÉ DICE LA LEY]: Las plazas de garaje son espacios destinados exclusivamente al estacionamiento de vehículos a motor dentro de las líneas delimitadoras. La LPH y las normativas de seguridad (especialmente el Código Técnico de la Edificación y leyes contra incendios) prohíben dar a la plaza de garaje un uso diferente, como el de trastero para acumular muebles, enseres o material inflamable, ya que supone un grave riesgo de seguridad
+.
+Del mismo modo, las normas de convivencia de régimen interior habitualmente prohíben expresamente limpiar vehículos o realizar tareas mecánicas en el garaje, puesto que estas actividades ensucian las zonas comunes, pueden dejar vertidos de líquidos peligrosos y molestar al resto de usuarios
+.
+En cuanto a la movilidad eléctrica, la ley da amplias facilidades: el artículo 17.5 de la LPH establece que la instalación de un punto de recarga de vehículos eléctricos para uso privado en una plaza de aparcamiento solo requiere la comunicación previa a la comunidad. El propietario interesado asume íntegramente el coste de instalación y consumo
+. [PREGUNTAS FRECUENTES]:
+P: ¿Puedo dejar cajas o usar la parte trasera de mi plaza de garaje para guardar trastos? R: No, las plazas de garaje no pueden usarse como trasteros. Almacenar objetos fuera del vehículo está prohibido porque compromete la seguridad y contraviene la normativa contra incendios
+.
+P: Quiero poner un enchufe para cargar mi coche eléctrico en mi plaza, ¿tengo que pedir permiso y someterlo a votación? R: No necesitas someterlo a votación. La ley dicta que basta con enviar una comunicación previa a la comunidad informando de que vas a instalar el punto de recarga, asumiendo tú los costes de la obra y la electricidad`;
+
+async function addKnowledge() {
+  const { data: users, error } = await supabase.auth.admin.listUsers()
+  if (users?.users) {
+    const adminUser = users.users.find(u => u.email === 'limpiezasrayba@gmail.com')
+    if (adminUser) {
+        const { data: profile } = await supabase.from('profiles').select('*').eq('id', adminUser.id).single()
+        if (profile?.community_id) {
+            console.log('Inserting document for community', profile.community_id);
+            const { error: insertError } = await supabase.from('docs').insert({
+                title: 'Ley de Propiedad Horizontal y Convivencia',
+                body: knowledgeBase,
+                community_id: profile.community_id,
+                type: 'rules'
+            })
+            if (insertError) {
+                console.error('Error inserting', insertError);
+            } else {
+                console.log('SUCCESS: Document added to AI Knowledge base!');
+            }
+        } else {
+            console.log('Admin user does not have a community yet');
+        }
+    }
+  }
+}
+
+addKnowledge()

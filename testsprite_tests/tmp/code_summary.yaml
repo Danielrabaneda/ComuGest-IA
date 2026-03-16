@@ -1,0 +1,83 @@
+version: "2"
+type: frontend
+tech_stack:
+  - TypeScript
+  - Next.js 16
+  - TailwindCSS
+  - Radix UI
+  - Stripe
+  - Supabase
+  - AI (OpenRouter)
+routes:
+  - path: /
+    file: app/page.tsx
+    auth_required: false
+    description: Landing page
+  - path: /login
+    file: app/(auth)/login/page.tsx
+    auth_required: false
+    description: User login page
+  - path: /register
+    file: app/(auth)/register/page.tsx
+    auth_required: false
+    description: User registration page
+  - path: /home
+    file: app/(app)/home/page.tsx
+    auth_required: true
+    description: User home dashboard (Neighbor/Admin)
+  - path: /admin
+    file: app/(app)/admin/page.tsx
+    auth_required: true
+    description: Admin settings panel
+  - path: /notices
+    file: app/(app)/notices/page.tsx
+    auth_required: true
+    description: Community notices list
+  - path: /notices/new
+    file: app/(app)/notices/new/page.tsx
+    auth_required: true
+    description: Create new notice (Admin only)
+  - path: /incidents
+    file: app/(app)/incidents/page.tsx
+    auth_required: true
+    description: Incident list
+  - path: /incidents/new
+    file: app/(app)/incidents/new/page.tsx
+    auth_required: true
+    description: Create new incident
+  - path: /reservations
+    file: app/(app)/reservations/page.tsx
+    auth_required: true
+    description: Space reservations
+features:
+  - name: User Authentication
+    description: Registration and login with email/password
+    files:
+      - app/(auth)/login/page.tsx
+      - app/(auth)/register/page.tsx
+    entry_route: /login
+    user_interactions:
+      - Fill email and password
+      - Click Login/Register button
+    auth_required: false
+  - name: Community Onboarding
+    description: Create or join a community after registration
+    files:
+      - components/community/Onboarding.tsx
+    entry_route: /home
+    user_interactions:
+      - Click "Unirme con código" or "Crear Comunidad"
+      - Fill community details or access code
+    auth_required: true
+  - name: Notice Management
+    description: Admins can create and publish notices
+    files:
+      - app/(app)/notices/page.tsx
+      - app/(app)/notices/new/page.tsx
+    entry_route: /notices
+    user_interactions:
+      - Click "Crear anuncio" button
+      - Fill notice details
+      - Click publish
+    auth_required: true
+known_limitations: []

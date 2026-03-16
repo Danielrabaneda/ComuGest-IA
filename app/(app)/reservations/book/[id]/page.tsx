@@ -4,24 +4,21 @@ import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import {
-    ArrowLeft,
     Calendar as CalendarIcon,
-    Clock,
+    ArrowLeft,
     CheckCircle2,
-    AlertCircle,
     Loader2,
-    ChevronRight,
     Info
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
-import { Badge } from '@/components/ui/badge'
 import { toast } from 'sonner'
-import { Space } from '@/types'
-import { format, addMinutes, startOfToday, addDays, isSameDay } from 'date-fns'
+import { format, addMinutes, addDays, isSameDay, isAfter } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { cn } from '@/lib/utils'
+import { Space, Reservation } from '@/types'
+import Image from 'next/image'
 
 export default function BookSpacePage() {
     const { id } = useParams()
@@ -31,6 +28,8 @@ export default function BookSpacePage() {
     const [selectedDate, setSelectedDate] = useState(new Date())
     const [selectedTime, setSelectedTime] = useState<string | null>(null)
     const [isBooking, setIsBooking] = useState(false)
+    const [existingReservations, setExistingReservations] = useState<Reservation[]>([])
+    const [isLoadingSlots, setIsLoadingSlots] = useState(false)
 
     const supabase = createClient()
 
@@ -43,24 +42,68 @@ export default function BookSpacePage() {
         fetchSpace()
     }, [id, supabase])
 
+    useEffect(() => {
+        const fetchExistingReservations = async () => {
+            if (!space) return
+            setIsLoadingSlots(true)
+            
+            // Start of day and end of day in UTC for the selected date
+            const startOfDay = new Date(selectedDate)
+            startOfDay.setHours(0, 0, 0, 0)
+            const endOfDay = new Date(selectedDate)
+            endOfDay.setHours(23, 59, 59, 999)
+
+            const { data, error } = await supabase
+                .from('reservations')
+                .select('*')
+                .eq('space_id', space.id)
+                .eq('status', 'confirmed')
+                .gte('start_time', startOfDay.toISOString())
+                .lte('start_time', endOfDay.toISOString())
+
+            if (!error && data) {
+                setExistingReservations(data as Reservation[])
+            }
+            setIsLoadingSlots(false)
+        }
+
+        fetchExistingReservations()
+    }, [space, selectedDate, supabase])
+
     const generateTimeSlots = () => {
-        if (!space) return []
+        if (!space || !space.opening_time || !space.closing_time) return []
         const slots = []
         const [openH, openM] = space.opening_time.split(':').map(Number)
         const [closeH, closeM] = space.closing_time.split(':').map(Number)
 
-        let current = new Date()
-        current.setHours(openH, openM, 0, 0)
+        const start = new Date(selectedDate)
+        start.setHours(openH, openM, 0, 0)
 
-        const end = new Date()
+        const end = new Date(selectedDate)
         end.setHours(closeH, closeM, 0, 0)
 
+        let current = start
+        const duration = space.reservation_duration || 60
+
         while (current < end) {
-            slots.push(format(current, 'HH:mm'))
-            current = addMinutes(current, space.reservation_duration)
+            const timeStr = format(current, 'HH:mm')
+            const isOccupied = existingReservations.some(res => {
+                const resStart = new Date(res.start_time)
+                return format(resStart, 'HH:mm') === timeStr
+            })
+            
+            // Check if slot is in the past (only relevant for today)
+            const isPast = isAfter(new Date(), current)
+
+            slots.push({
+                time: timeStr,
+                isOccupied: isOccupied || isPast
+            })
+            current = addMinutes(current, duration)
         }
         return slots
     }
+
 
     const handleBook = async () => {
         if (!selectedTime || !space) return
@@ -76,8 +119,17 @@ export default function BookSpacePage() {
 
             const endTime = addMinutes(startTime, space.reservation_duration)
 
+            const { data: profile, error: profileError } = await supabase
+                .from('profiles')
+                .select('community_id')
+                .eq('id', user.id)
+                .single()
+
+            if (profileError) throw profileError
+            if (!profile) throw new Error('Perfil de usuario no encontrado.')
+
             const { error } = await supabase.from('reservations').insert({
-                community_id: space.community_id,
+                community_id: profile.community_id,
                 space_id: space.id,
                 user_id: user.id,
                 start_time: startTime.toISOString(),
@@ -89,8 +141,9 @@ export default function BookSpacePage() {
 
             toast.success('¡Reserva confirmada con éxito!')
             router.push('/reservations')
-        } catch (err: any) {
-            toast.error('Error al reservar: ' + err.message)
+        } catch (err: unknown) {
+            const message = err instanceof Error ? err.message : 'Error desconocido'
+            toast.error('Error al reservar: ' + message)
         } finally {
             setIsBooking(false)
         }
@@ -99,7 +152,16 @@ export default function BookSpacePage() {
     if (isLoading) return <div className="h-screen flex items-center justify-center"><Loader2 className="animate-spin text-primary" size={48} /></div>
     if (!space) return <div>Espacio no encontrado.</div>
 
-    const dates = Array.from({ length: 7 }, (_, i) => addDays(new Date(), i))
+    const isDayAvailable = (date: Date) => {
+        if (!space || !space.available_days) return true
+        const dayMap: Record<number, string> = {
+            1: 'L', 2: 'M', 3: 'X', 4: 'J', 5: 'V', 6: 'S', 0: 'D'
+        }
+        const dayKey = dayMap[date.getDay()]
+        return space.available_days.includes(dayKey)
+    }
+
+    const dates = Array.from({ length: 14 }, (_, i) => addDays(new Date(), i))
 
     return (
         <div className="space-y-8 pb-20 max-w-4xl mx-auto animate-in fade-in slide-in-from-right-4 duration-700">
@@ -127,38 +189,49 @@ export default function BookSpacePage() {
                             <div className="space-y-4">
                                 <Label className="text-xs font-black text-slate-400 uppercase tracking-widest leading-none">¿Para cuándo?</Label>
                                 <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
-                                    {dates.map((date) => (
-                                        <button
-                                            key={date.toISOString()}
-                                            onClick={() => setSelectedDate(date)}
-                                            className={cn(
-                                                "flex flex-col items-center justify-center min-w-[80px] h-24 rounded-3xl border-2 transition-all shrink-0",
-                                                isSameDay(date, selectedDate)
-                                                    ? "bg-slate-900 border-slate-900 text-white shadow-xl scale-105"
-                                                    : "bg-slate-50 border-slate-100 text-slate-400 hover:border-primary/20"
-                                            )}
-                                        >
-                                            <span className="text-[10px] font-black uppercase tracking-widest mb-1">{format(date, 'eee', { locale: es })}</span>
-                                            <span className="text-2xl font-black">{format(date, 'd')}</span>
-                                        </button>
-                                    ))}
+                                    {dates.map((date) => {
+                                        const available = isDayAvailable(date)
+                                        return (
+                                            <button
+                                                key={date.toISOString()}
+                                                disabled={!available}
+                                                onClick={() => setSelectedDate(date)}
+                                                className={cn(
+                                                    "flex flex-col items-center justify-center min-w-[80px] h-24 rounded-3xl border-2 transition-all shrink-0",
+                                                    isSameDay(date, selectedDate)
+                                                        ? "bg-slate-900 border-slate-900 text-white shadow-xl scale-105"
+                                                        : "bg-slate-50 border-slate-100 text-slate-400 hover:border-primary/20",
+                                                    !available && "opacity-20 cursor-not-allowed grayscale"
+                                                )}
+                                            >
+                                                <span className="text-[10px] font-black uppercase tracking-widest mb-1">{format(date, 'eee', { locale: es })}</span>
+                                                <span className="text-2xl font-black">{format(date, 'd')}</span>
+                                            </button>
+                                        )
+                                    })}
                                 </div>
                             </div>
 
                             <div className="space-y-4">
-                                <Label className="text-xs font-black text-slate-400 uppercase tracking-widest leading-none">Horarios Disponibles</Label>
+                                <Label className="text-xs font-black text-slate-400 uppercase tracking-widest leading-none flex items-center gap-2">
+                                    Horarios Disponibles
+                                    {isLoadingSlots && <Loader2 size={12} className="animate-spin text-primary" />}
+                                </Label>
                                 <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
                                     {generateTimeSlots().map((slot) => (
                                         <Button
-                                            key={slot}
-                                            variant={selectedTime === slot ? 'default' : 'outline'}
+                                            key={slot.time}
+                                            variant={selectedTime === slot.time ? 'default' : 'outline'}
+                                            disabled={slot.isOccupied}
                                             className={cn(
-                                                "h-12 rounded-xl font-bold italic tracking-tight uppercase border-2",
-                                                selectedTime === slot ? "bg-primary border-primary shadow-lg shadow-primary/20 scale-105" : "border-slate-100 text-slate-500 hover:bg-slate-50"
+                                                "h-12 rounded-xl font-bold italic tracking-tight uppercase border-2 flex flex-col items-center justify-center p-0",
+                                                selectedTime === slot.time ? "bg-primary border-primary shadow-lg shadow-primary/20 scale-105" : "border-slate-100 text-slate-500 hover:bg-slate-50",
+                                                slot.isOccupied && "opacity-40 cursor-not-allowed bg-slate-100 text-slate-400"
                                             )}
-                                            onClick={() => setSelectedTime(slot)}
+                                            onClick={() => setSelectedTime(slot.time)}
                                         >
-                                            {slot}
+                                            <span className="leading-none">{slot.time}</span>
+                                            {slot.isOccupied && <span className="text-[8px] font-black uppercase tracking-tighter mt-0.5">Ocupado</span>}
                                         </Button>
                                     ))}
                                 </div>
@@ -170,7 +243,14 @@ export default function BookSpacePage() {
                 <div className="md:col-span-2 space-y-8">
                     <Card className="bg-white border-none shadow-2xl shadow-slate-200/50 rounded-[40px] overflow-hidden sticky top-8">
                         <div className="h-40 relative">
-                            <img src={space.image_url || 'https://via.placeholder.com/400x200'} className="w-full h-full object-cover" alt={space.name} />
+                            {space.image_url ? (
+                                <Image src={space.image_url} fill className="object-cover" alt={space.name} />
+                            ) : (
+                                <div className="w-full h-full bg-slate-100 flex items-center justify-center">
+                                    <CalendarIcon className="text-slate-300" size={48} />
+                                </div>
+                            )}
+
                             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-transparent" />
                             <h3 className="absolute bottom-6 left-8 text-2xl font-black text-white italic tracking-tighter uppercase leading-none">{space.name}</h3>
                         </div>
@@ -194,6 +274,15 @@ export default function BookSpacePage() {
                                 <Info size={20} className="text-primary shrink-0" />
                                 Recuerda llegar puntual y dejar el espacio limpio para el siguiente vecino.
                             </div>
+
+                            {space.rules && (
+                                <div className="space-y-3">
+                                    <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest leading-none">Normas del Espacio</h4>
+                                    <div className="bg-slate-50 p-6 rounded-[24px] text-sm text-slate-500 italic leading-relaxed whitespace-pre-line border border-slate-100">
+                                        {space.rules}
+                                    </div>
+                                </div>
+                            )}
                         </CardContent>
                         <CardFooter className="p-8 pt-0">
                             <Button

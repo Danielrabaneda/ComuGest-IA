@@ -1,0 +1,47 @@
+﻿
+> comugest-ia@0.1.0 build
+> next build
+
+Ôû▓ Next.js 16.1.6 (Turbopack)
+- Environments: .env.local, .env.production
+
+  Creating an optimized production build ...
+Ô£ô Compiled successfully in 6.9s
+  Running TypeScript ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/19) ...
+  Generating static pages using 7 workers (4/19) 
+  Generating static pages using 7 workers (9/19) 
+  Generating static pages using 7 workers (14/19) 
+Ô£ô Generating static pages using 7 workers (19/19) in 652.2ms
+  Finalizing page optimization ...
+
+Route (app)
+Ôöî Ôùï /
+Ôö£ Ôùï /_not-found
+Ôö£ Ôùï /admin
+Ôö£ ãÆ /api/ai/analyze-doc
+Ôö£ ãÆ /api/ai/chat
+Ôö£ ãÆ /api/ai/classify-incident
+Ôö£ ãÆ /api/ai/generate-notice
+Ôö£ ãÆ /api/ai/upload-pdf
+Ôö£ Ôùï /assistant
+Ôö£ ãÆ /home
+Ôö£ Ôùï /home/community
+Ôö£ Ôùï /incidents
+Ôö£ ãÆ /incidents/[id]
+Ôö£ Ôùï /incidents/new
+Ôö£ Ôùï /login
+Ôö£ Ôùï /notices
+Ôö£ ãÆ /notices/[id]
+Ôö£ Ôùï /notices/new
+Ôö£ Ôùï /register
+Ôö£ Ôùï /reservations
+Ôöö ãÆ /reservations/book/[id]
+
+
+ãÆ Proxy (Middleware)
+
+Ôùï  (Static)   prerendered as static content
+ãÆ  (Dynamic)  server-rendered on demand
+

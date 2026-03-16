@@ -43,6 +43,8 @@ export default function IncidentDetails({ incident: initialIncident, userId, use
     const router = useRouter()
     const supabase = createClient()
 
+    console.log('DEBUG - Incident data in Details:', incident)
+
     const handleUpdateStatus = async (newStatus: string) => {
         setIsUpdatingStatus(true)
         const { data, error } = await supabase
@@ -71,10 +73,15 @@ export default function IncidentDetails({ incident: initialIncident, userId, use
             .from('incident_comments')
             .insert({
                 incident_id: incident.id,
-                user_id: userId,
-                body: newComment
+                author_id: userId,
+                message: newComment
             })
-            .select('*, profiles:user_id(full_name, avatar_url)')
+            .select(`
+                *, 
+                user_id:author_id, 
+                body:message, 
+                profiles(full_name, avatar_url)
+            `)
             .single()
 
         if (error) {
@@ -139,14 +146,14 @@ export default function IncidentDetails({ incident: initialIncident, userId, use
                             </div>
                             <div className="flex flex-col gap-4">
                                 <p className="text-lg text-slate-300 leading-relaxed font-medium italic">
-                                    "{incident.description || 'Sin descripción detallada.'}"
+                                    &ldquo;{incident.description || 'Sin descripción detallada.'}&rdquo;
                                 </p>
                                 <div className="flex items-center gap-3 mt-4 pt-6 border-t border-slate-800">
-                                    <div className="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center font-bold text-primary">
-                                        {incident.profiles?.full_name[0]}
+                                    <div className="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center font-bold text-primary italic">
+                                        {incident.profiles?.full_name?.[0] || 'U'}
                                     </div>
                                     <div>
-                                        <div className="text-sm font-bold text-white uppercase tracking-widest leading-none mb-1">{incident.profiles?.full_name}</div>
+                                        <div className="text-sm font-bold text-white uppercase tracking-widest leading-none mb-1">{incident.profiles?.full_name || 'Usuario'}</div>
                                         <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">VECINO EMISOR</div>
                                     </div>
                                 </div>
@@ -169,13 +176,13 @@ export default function IncidentDetails({ incident: initialIncident, userId, use
                             )}
 
                             {/* Attachments */}
-                            {incident.attachments && incident.attachments.length > 0 && (
+                            {((incident.attachments && incident.attachments.length > 0) || (incident.incident_attachments && incident.incident_attachments.length > 0)) && (
                                 <div className="space-y-4">
                                     <h4 className="text-sm font-black text-slate-900 tracking-widest uppercase flex items-center gap-2">
-                                        <ImageIcon size={18} className="text-primary" /> Archivos Adjuntos ({incident.attachments.length})
+                                        <ImageIcon size={18} className="text-primary" /> Archivos Adjuntos ({(incident.attachments?.length || 0) + (incident.incident_attachments?.length || 0)})
                                     </h4>
                                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                                        {incident.attachments.map((file: any) => (
+                                        {[...(incident.attachments || []), ...(incident.incident_attachments || [])].map((file: any) => (
                                             <div key={file.id} className="group relative aspect-video rounded-2xl bg-slate-50 border-2 border-slate-100 p-1 hover:border-primary transition-all cursor-pointer overflow-hidden shadow-sm">
                                                 {file.file_type === 'image' ? (
                                                     <img src={file.file_url} className="w-full h-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-500" alt="attachment" />
@@ -209,8 +216,8 @@ export default function IncidentDetails({ incident: initialIncident, userId, use
                                     "flex gap-4 p-5 rounded-3xl",
                                     comment.user_id === userId ? "bg-primary/5 flex-row-reverse" : "bg-white shadow-xl shadow-slate-200/50"
                                 )}>
-                                    <div className="h-10 w-10 rounded-full bg-slate-100 flex items-center justify-center font-bold text-slate-500 text-xs shrink-0">
-                                        {comment.profiles?.full_name[0]}
+                                    <div className="h-10 w-10 rounded-full bg-slate-100 flex items-center justify-center font-bold text-slate-500 text-xs shrink-0 italic">
+                                        {comment.profiles?.full_name?.[0] || 'U'}
                                     </div>
                                     <div className={cn("space-y-1 max-w-[80%]", comment.user_id === userId ? "text-right" : "")}>
                                         <div className="flex items-center gap-2 mb-1 justify-end md:justify-start">

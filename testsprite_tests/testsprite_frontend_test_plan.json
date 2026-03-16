@@ -1,0 +1,2532 @@
+[
+  {
+    "id": "TC001",
+    "title": "Register with already-used email shows 'account exists' style error",
+    "description": "Verifies registration fails with a clear visible error when the email is already registered.",
+    "category": "User Authentication & Onboarding",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /register"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify page title contains \"Register\""
+      },
+      {
+        "type": "action",
+        "description": "Type \"existing.user.e2e@example.com\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"COMMUNITYCODE123\" into the community code field"
+      },
+      {
+        "type": "action",
+        "description": "Click the Register button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"already\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"registered\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC002",
+    "title": "Login with missing required community code shows validation error",
+    "description": "Verifies the login form blocks submission when community code is required and missing, and shows a visible validation message.",
+    "category": "User Authentication & Onboarding",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify page title contains \"Login\""
+      },
+      {
+        "type": "action",
+        "description": "Type \"existing.user.e2e@example.com\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Click the Login button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Community code\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"required\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC003",
+    "title": "Register form requires email (empty email submission shows validation error)",
+    "description": "Verifies the register form shows a visible validation error when email is left blank.",
+    "category": "User Authentication & Onboarding",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /register"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify page title contains \"Register\""
+      },
+      {
+        "type": "action",
+        "description": "Type \"COMMUNITYCODE123\" into the community code field"
+      },
+      {
+        "type": "action",
+        "description": "Click the Register button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Email\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"required\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC004",
+    "title": "Login form requires email (empty email submission shows validation error)",
+    "description": "Verifies the login form shows a visible validation error when email is left blank.",
+    "category": "User Authentication & Onboarding",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify page title contains \"Login\""
+      },
+      {
+        "type": "action",
+        "description": "Click the Login button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Email\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"required\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC005",
+    "title": "Home dashboard loads with personalized welcome and key sections",
+    "description": "Verifies the neighbor home dashboard renders the welcome message and the main content sections for notices, incidents, and quick actions.",
+    "category": "Home Dashboard (Neighbor)",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Iniciar sesión\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Hola,\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Últimos avisos\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Incidencias recientes\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC006",
+    "title": "Quick action: create a new incident from Home",
+    "description": "Verifies the user can start creating an incident by using the 'Nueva incidencia' quick action from the Home dashboard.",
+    "category": "Home Dashboard (Neighbor)",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Iniciar sesión\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Nueva incidencia\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/incidents/new\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify page title contains \"Incid\""
+      }
+    ]
+  },
+  {
+    "id": "TC007",
+    "title": "Home shows latest notices list section (structure visible)",
+    "description": "Verifies the 'Últimos avisos' section is present and shows a list area for recent items.",
+    "category": "Home Dashboard (Neighbor)",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Iniciar sesión\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Últimos avisos\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Últimos avisos\" section is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Incidencias recientes\" section is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC008",
+    "title": "Home shows recent incidents list section (structure visible)",
+    "description": "Verifies the 'Incidencias recientes' section is present and shows a list area for recent items.",
+    "category": "Home Dashboard (Neighbor)",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Iniciar sesión\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Incidencias recientes\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Incidencias recientes\" section is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Últimos avisos\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC009",
+    "title": "Empty state: no notices present shows 'No hay avisos' message",
+    "description": "Verifies that when there are no notices, the Home dashboard displays the specified empty-state card/message.",
+    "category": "Home Dashboard (Neighbor)",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Iniciar sesión\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Últimos avisos\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"No hay avisos\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"No hay avisos\" card is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC010",
+    "title": "Floating button opens Secretario IA entry point from Home",
+    "description": "Verifies the user can access the AI assistant entry point from the Home dashboard via the floating button.",
+    "category": "Home Dashboard (Neighbor)",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Iniciar sesión\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click the floating \"Secretario IA\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/assistant\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Secretario\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC011",
+    "title": "Login guard prerequisite: Home dashboard accessible after successful login",
+    "description": "Verifies that after a valid login, the user lands on Home and can see a stable dashboard header state.",
+    "category": "Home Dashboard (Neighbor)",
+    "priority": "Low",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Iniciar sesión\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Hola,\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Últimos avisos\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Incidencias recientes\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC012",
+    "title": "Create a new incident with title and description and reach the incidents list",
+    "description": "Verifies a neighbor can submit a new incident with required fields and then sees a confirmation and the incidents list.",
+    "category": "Incident Reporting (Neighbor)",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Login\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Sign in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Incidents\" in the main navigation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/incidents\""
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"New incident\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/incidents/new\""
+      },
+      {
+        "type": "action",
+        "description": "Type \"Broken hallway light\" into the incident title field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"The light on the 3rd floor hallway is flickering and sometimes goes off completely.\" into the incident description field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Submit\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Incident\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"submitted\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/incidents\""
+      }
+    ]
+  },
+  {
+    "id": "TC013",
+    "title": "Create a new incident and verify the new item appears in the incidents list",
+    "description": "Verifies that after submitting a new incident, the incidents list shows an entry matching the submitted title.",
+    "category": "Incident Reporting (Neighbor)",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Sign in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Incidents\" in the main navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"New incident\" button"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Water leak near mailbox\" into the incident title field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"There is a small but constant leak on the ground floor near the mailbox area.\" into the incident description field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Submit\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/incidents\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Water leak near mailbox\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC014",
+    "title": "Validation: submitting with blank title shows 'Title is required' and stays on new incident page",
+    "description": "Verifies client/server validation prevents submission when the title is missing and shows the expected error.",
+    "category": "Incident Reporting (Neighbor)",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Sign in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Incidents\" in the main navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"New incident\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/incidents/new\""
+      },
+      {
+        "type": "action",
+        "description": "Type \"The elevator makes a loud noise when starting and sometimes stops between floors.\" into the incident description field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Submit\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Title is required\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/incidents/new\""
+      }
+    ]
+  },
+  {
+    "id": "TC015",
+    "title": "Validation: submitting with blank description shows a required error and stays on new incident page",
+    "description": "Verifies the description field is required and prevents submission when missing.",
+    "category": "Incident Reporting (Neighbor)",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Sign in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Incidents\" in the main navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"New incident\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/incidents/new\""
+      },
+      {
+        "type": "action",
+        "description": "Type \"Garage door remote not working\" into the incident title field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Submit\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Description\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"required\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/incidents/new\""
+      }
+    ]
+  },
+  {
+    "id": "TC016",
+    "title": "Cancel out of new incident form without submitting",
+    "description": "Verifies the user can leave the new incident page using a cancel/back control without creating an incident.",
+    "category": "Incident Reporting (Neighbor)",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Sign in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Incidents\" in the main navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"New incident\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/incidents/new\""
+      },
+      {
+        "type": "action",
+        "description": "Type \"Test incident draft\" into the incident title field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"This is a draft that should not be submitted.\" into the incident description field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Cancel\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/incidents\""
+      }
+    ]
+  },
+  {
+    "id": "TC017",
+    "title": "Form resilience: very long title/description are handled without breaking submission flow",
+    "description": "Verifies the UI can handle long inputs and still completes submission and redirect successfully.",
+    "category": "Incident Reporting (Neighbor)",
+    "priority": "Low",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Sign in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Incidents\" in the main navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"New incident\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/incidents/new\""
+      },
+      {
+        "type": "action",
+        "description": "Type \"Noise complaint - repeated loud banging in the stairwell during late hours over multiple nights\" into the incident title field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Over the past two weeks, there has been repeated loud banging and shouting in the stairwell between 23:00 and 01:00. It seems to come from the 2nd to 4th floor landings. This is affecting sleep and could indicate misuse of common areas. Please investigate and remind residents about quiet hours.\" into the incident description field"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Submit\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/incidents\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"submitted\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC018",
+    "title": "View incidents list and filter by status 'Abierta' then open an incident detail",
+    "description": "Verifies that an authenticated user can view the incidents list, filter by status, and open an incident detail page with key sections visible.",
+    "category": "Incident List & Detail (Neighbor & Admin)",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Incidents\" in the main navigation menu"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/incidents\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Incidents\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click the status filter dropdown"
+      },
+      {
+        "type": "action",
+        "description": "Select \"Abierta\" from the status filter dropdown"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Abierta\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click on the first incident card in the list"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Attachments\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Comments\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC019",
+    "title": "Admin creates and publishes a notice with AI-generated full and short versions",
+    "description": "Verifies an admin can draft a notice, request AI help, publish it, and see it listed under Notices.",
+    "category": "Notices / Comunicados",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Admin\" link or menu item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Nuevo aviso\" button or link"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Nuevo aviso\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Corte de agua programado\" into the title field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Se informa que habrá un corte de agua por mantenimiento el próximo martes de 10:00 a 14:00.\" into the draft textarea"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Pedir ayuda al Secretario IA\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Generated full notice body\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Generated short notice body\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Publish\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Comunicados\" or \"Notices\" link or menu item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/notices\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Corte de agua programado\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC020",
+    "title": "Neighbor views notices list and opens a notice detail",
+    "description": "Verifies users can view active notices ordered by date and open a notice to see its details.",
+    "category": "Notices / Comunicados",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Comunicados\" or \"Notices\" link or menu item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/notices\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Notices list\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click the first notice in the list"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Notice detail card\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Title\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Full body\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Start date\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"End date\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC021",
+    "title": "Admin tries to publish a new notice with empty title and draft",
+    "description": "Verifies required-field validation prevents publishing when title and draft are missing.",
+    "category": "Notices / Comunicados",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Admin\" link or menu item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Nuevo aviso\" button or link"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Publish\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Title and draft required\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin\""
+      }
+    ]
+  },
+  {
+    "id": "TC022",
+    "title": "Admin requests AI help with missing draft content",
+    "description": "Verifies the app blocks AI generation (or shows a visible error) when the draft is empty.",
+    "category": "Notices / Comunicados",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Admin\" link or menu item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Nuevo aviso\" button or link"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Aviso sin borrador\" into the title field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Pedir ayuda al Secretario IA\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Draft required\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC023",
+    "title": "Admin publishes a notice without using AI assistance",
+    "description": "Verifies an admin can publish using only manually entered content and see it on the notices page.",
+    "category": "Notices / Comunicados",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Admin\" link or menu item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Nuevo aviso\" button or link"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Reunión de vecinos\" into the title field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Se convoca a reunión el viernes a las 19:00 en el salón social.\" into the draft textarea"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Publish\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Comunicados\" or \"Notices\" link or menu item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/notices\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Reunión de vecinos\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC024",
+    "title": "Notices list shows active notices view with expected ordering cue",
+    "description": "Verifies the notices page presents active notices and provides a visible date context that supports ordering by date.",
+    "category": "Notices / Comunicados",
+    "priority": "Low",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Comunicados\" or \"Notices\" link or menu item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/notices\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Notices list\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Notice date\" is visible on at least one notice item"
+      }
+    ]
+  },
+  {
+    "id": "TC025",
+    "title": "Create a reservation with optional notes and see confirmation",
+    "description": "Verifies a logged-in neighbor can book an available time slot for a space and sees a confirmation message.",
+    "category": "Space Reservations",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Reservations\" navigation item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/reservations\""
+      },
+      {
+        "type": "action",
+        "description": "Click on a space card"
+      }
+    ]
+  },
+  {
+    "id": "TC026",
+    "title": "Reservation booking flow: select date/time, add notes, book, and confirm",
+    "description": "Verifies the end-to-end booking interaction within a selected space: choose a free slot, optionally add notes, book, and see confirmation UI.",
+    "category": "Space Reservations",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Reservations\" navigation item"
+      },
+      {
+        "type": "action",
+        "description": "Click on a space card"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"weekly calendar\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC027",
+    "title": "Weekly calendar shows both free and occupied slots for a space",
+    "description": "Verifies that after selecting a space, the weekly calendar renders and indicates availability states (free vs occupied).",
+    "category": "Space Reservations",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Reservations\" navigation item"
+      },
+      {
+        "type": "action",
+        "description": "Click on a space card"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Free\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC028",
+    "title": "Attempt to book an already taken slot shows conflict error and recovery option",
+    "description": "Verifies booking a taken slot is blocked with a visible conflict error and prompts the user to choose another time.",
+    "category": "Space Reservations",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Reservations\" navigation item"
+      },
+      {
+        "type": "action",
+        "description": "Click on a space card"
+      },
+      {
+        "type": "action",
+        "description": "Click on a slot marked as taken/occupied"
+      }
+    ]
+  },
+  {
+    "id": "TC029",
+    "title": "Conflict error copy: 'Slot already booked' is displayed after booking taken slot",
+    "description": "Verifies the specific conflict error message is visible after attempting to book an occupied slot.",
+    "category": "Space Reservations",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Reservations\" navigation item"
+      },
+      {
+        "type": "action",
+        "description": "Click on a space card"
+      },
+      {
+        "type": "action",
+        "description": "Click on a slot marked as taken/occupied"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Book\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Slot already booked\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC030",
+    "title": "Recover from conflict by selecting another time after error",
+    "description": "Verifies that after a conflict error, the user can select a different slot and proceed toward booking again.",
+    "category": "Space Reservations",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Reservations\" navigation item"
+      },
+      {
+        "type": "action",
+        "description": "Click on a space card"
+      },
+      {
+        "type": "action",
+        "description": "Click on a slot marked as taken/occupied"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Book\" button"
+      }
+    ]
+  },
+  {
+    "id": "TC031",
+    "title": "Book without notes (notes field left empty) still succeeds",
+    "description": "Verifies notes are optional by booking a free slot without entering notes and confirming success UI.",
+    "category": "Space Reservations",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Reservations\" navigation item"
+      },
+      {
+        "type": "action",
+        "description": "Click on a space card"
+      },
+      {
+        "type": "action",
+        "description": "Click on a slot marked as free/available"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Book\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Reservation confirmed\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC032",
+    "title": "Booking confirmation includes a visible reminder/scheduling note",
+    "description": "Verifies the post-booking confirmation view includes a visible reminder-related message (as a proxy for reminder scheduling).",
+    "category": "Space Reservations",
+    "priority": "Low",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Reservations\" navigation item"
+      },
+      {
+        "type": "action",
+        "description": "Click on a space card"
+      },
+      {
+        "type": "action",
+        "description": "Click on a slot marked as free/available"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Book\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Reminder\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC033",
+    "title": "Chat: send a question and receive an assistant response",
+    "description": "Verifies a logged-in user can ask a question in the AI chat and see a response message rendered in the conversation.",
+    "category": "AI Assistant - 'Secretario IA' (Chat & Utilities)",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Assistant\" navigation item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/assistant\""
+      },
+      {
+        "type": "action",
+        "description": "Type \"¿Cuándo se limpia el garaje?\" into the chat message input"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Send\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"¿Cuándo se limpia el garaje?\" is visible in the chat conversation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an assistant response message is visible in the chat conversation"
+      }
+    ]
+  },
+  {
+    "id": "TC034",
+    "title": "Chat UI: sending an empty message is blocked",
+    "description": "Verifies the chat does not send when the input is empty and no new user message appears in the conversation.",
+    "category": "AI Assistant - 'Secretario IA' (Chat & Utilities)",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Assistant\" navigation item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/assistant\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Send\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Required\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Send\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC035",
+    "title": "Chat: long question still sends and displays in conversation",
+    "description": "Verifies the assistant accepts a long user message, renders it in the chat, and shows a response.",
+    "category": "AI Assistant - 'Secretario IA' (Chat & Utilities)",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Assistant\" navigation item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/assistant\""
+      },
+      {
+        "type": "action",
+        "description": "Type \"Necesito un resumen de las normas y también confirmar horarios de limpieza. Por favor incluye puntos clave y cualquier aviso reciente relevante para los vecinos. Este mensaje es intencionalmente largo para probar el comportamiento del cuadro de texto y el envío.\" into the chat message input"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Send\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Este mensaje es intencionalmente largo\" is visible in the chat conversation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an assistant response message is visible in the chat conversation"
+      }
+    ]
+  },
+  {
+    "id": "TC036",
+    "title": "Summarize utility: summarize meeting minutes and show bulleted summary plus save option",
+    "description": "Verifies the Summarize action returns a visible summary and presents an option to save the result.",
+    "category": "AI Assistant - 'Secretario IA' (Chat & Utilities)",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Assistant\" navigation item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/assistant\""
+      },
+      {
+        "type": "action",
+        "description": "Type \"Acta de reunión: 1) Se aprueba presupuesto para pintura de zonas comunes. 2) Se acuerda reforzar normas de uso del garaje. 3) Se programan tareas de limpieza para el primer sábado de cada mes. 4) Se revisará el contrato de mantenimiento del ascensor. 5) Se acuerda publicar un aviso con el calendario.\" into the text input area"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Summarize\" action"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a summary result section is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"•\" is visible in the summary result"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a \"Save\" option is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC037",
+    "title": "Summarize utility: empty input is blocked",
+    "description": "Verifies the Summarize action requires content and shows a visible validation message when the input is empty.",
+    "category": "AI Assistant - 'Secretario IA' (Chat & Utilities)",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Assistant\" navigation item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/assistant\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Summarize\" action"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Required\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC038",
+    "title": "Navigation: assistant page loads and shows core chat controls",
+    "description": "Verifies the assistant route renders and displays expected primary controls for chat and utilities.",
+    "category": "AI Assistant - 'Secretario IA' (Chat & Utilities)",
+    "priority": "Low",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Assistant\" navigation item"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/assistant\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"chat message input\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Send\" button is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Summarize\" action is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC039",
+    "title": "Admin incidents: filter open incidents and update status with internal note",
+    "description": "Verifies an admin can filter to open incidents, update an incident status to 'En curso', add an internal note, save, and see the updated status in the incidents list.",
+    "category": "Admin Panel - Incident & Reservation Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Iniciar sesión\" or \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Admin\" or \"Panel de administración\" in the main navigation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin\""
+      },
+      {
+        "type": "action",
+        "description": "Click \"Panel de incidencias\""
+      }
+    ]
+  },
+  {
+    "id": "TC040",
+    "title": "Admin incidents: apply filters to show only open incidents",
+    "description": "Verifies the admin incidents panel filtering controls narrow results to open incidents (and optionally by community/category/priority) and the list reflects the selected filter state.",
+    "category": "Admin Panel - Incident & Reservation Management",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Iniciar sesión\" or \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Admin\" or \"Panel de administración\" in the main navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Panel de incidencias\""
+      },
+      {
+        "type": "action",
+        "description": "Select \"Abierta\" or \"Open\" from the status/state filter dropdown"
+      }
+    ]
+  },
+  {
+    "id": "TC041",
+    "title": "Admin incidents: open incident detail and save internal note only",
+    "description": "Verifies an admin can open an incident detail panel, add an internal note, save, and see confirmation or the note visible afterwards without changing other fields.",
+    "category": "Admin Panel - Incident & Reservation Management",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Iniciar sesión\" or \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Admin\" or \"Panel de administración\" in the main navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Panel de incidencias\""
+      },
+      {
+        "type": "action",
+        "description": "Click the first incident row in the incidents table"
+      }
+    ]
+  },
+  {
+    "id": "TC042",
+    "title": "Admin incidents: update status to 'En curso' and verify list shows updated status",
+    "description": "Verifies changing an incident status to 'En curso' persists after saving and is reflected in the incident list row status.",
+    "category": "Admin Panel - Incident & Reservation Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Iniciar sesión\" or \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Admin\" or \"Panel de administración\" in the main navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Panel de incidencias\""
+      },
+      {
+        "type": "action",
+        "description": "Click the first incident row in the incidents table"
+      }
+    ]
+  },
+  {
+    "id": "TC043",
+    "title": "Admin reservations: cancel a reservation via confirmation modal",
+    "description": "Verifies an admin can cancel a reservation, confirm in the modal, and see the reservation marked as cancelled.",
+    "category": "Admin Panel - Incident & Reservation Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Iniciar sesión\" or \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Admin\" or \"Panel de administración\" in the main navigation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin\""
+      },
+      {
+        "type": "action",
+        "description": "Click \"Gestión de reservas\""
+      }
+    ]
+  },
+  {
+    "id": "TC044",
+    "title": "Admin reservations: cancellation modal can be dismissed without changes",
+    "description": "Verifies that starting a reservation cancellation shows a confirmation modal and that dismissing it does not change the reservation status.",
+    "category": "Admin Panel - Incident & Reservation Management",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Iniciar sesión\" or \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Admin\" or \"Panel de administración\" in the main navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Gestión de reservas\""
+      },
+      {
+        "type": "action",
+        "description": "Click the first reservation row in the reservations table"
+      }
+    ]
+  },
+  {
+    "id": "TC045",
+    "title": "Access control: attempting to change an incident outside your community shows forbidden error",
+    "description": "Verifies the UI blocks status changes for incidents outside the admin's community and displays a visible 'Forbidden' or 'Access denied' error message.",
+    "category": "Admin Panel - Incident & Reservation Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Iniciar sesión\" or \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Admin\" or \"Panel de administración\" in the main navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Panel de incidencias\""
+      },
+      {
+        "type": "action",
+        "description": "Use the community filter to select a different community than your own (if available)"
+      }
+    ]
+  },
+  {
+    "id": "TC046",
+    "title": "Admin panel navigation: switch between incidents and reservations sections",
+    "description": "Verifies the admin can navigate between 'Panel de incidencias' and 'Gestión de reservas' sections and each section shows the expected visible heading/content.",
+    "category": "Admin Panel - Incident & Reservation Management",
+    "priority": "Low",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email/username field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Iniciar sesión\" or \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Admin\" or \"Panel de administración\" in the main navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Panel de incidencias\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Panel de incidencias\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC047",
+    "title": "Create a new community and verify generated community code and default plan",
+    "description": "Verifies an admin can create a community from the Admin area and sees a generated community code and default/trial plan in the community list.",
+    "category": "Community Settings & Roles",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Iniciar sesión\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Admin\" option in the main navigation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin\""
+      },
+      {
+        "type": "action",
+        "description": "Click \"Ajustes de comunidad\""
+      }
+    ]
+  },
+  {
+    "id": "TC048",
+    "title": "Complete community creation form and confirm community appears in list",
+    "description": "Verifies the community creation form accepts valid inputs and the newly created community is visible in the communities list.",
+    "category": "Community Settings & Roles",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Iniciar sesión\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Admin\" option in the main navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Ajustes de comunidad\""
+      },
+      {
+        "type": "action",
+        "description": "Click \"Crear comunidad\""
+      }
+    ]
+  },
+  {
+    "id": "TC049",
+    "title": "Enable Pro plan in Admin and confirm reservations become accessible",
+    "description": "Verifies an admin can switch the community to Pro and then access Reservations without seeing plan-gating warnings.",
+    "category": "Plans & Feature Gating (Basic vs Pro)",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Iniciar sesión\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Admin\" in the main navigation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/admin\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Plan y facturación\""
+      }
+    ]
+  },
+  {
+    "id": "TC050",
+    "title": "Save Pro plan and see confirmation message",
+    "description": "Verifies saving the Pro plan shows the expected success confirmation in the admin billing/plan area.",
+    "category": "Plans & Feature Gating (Basic vs Pro)",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Iniciar sesión\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Admin\" in the main navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Plan y facturación\""
+      },
+      {
+        "type": "action",
+        "description": "Select \"Pro\" from the plan dropdown"
+      }
+    ]
+  },
+  {
+    "id": "TC051",
+    "title": "Confirm 'Pro features enabled' message after saving plan change",
+    "description": "Verifies the UI shows 'Pro features enabled' after saving the plan switch to Pro.",
+    "category": "Plans & Feature Gating (Basic vs Pro)",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Iniciar sesión\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Admin\" in the main navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Plan y facturación\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Guardar\" button"
+      }
+    ]
+  },
+  {
+    "id": "TC052",
+    "title": "Basic plan gating: attempting to reserve shows upgrade required notice",
+    "description": "Verifies a neighbor in a Basic community sees a plan-gating message when attempting to create a reservation.",
+    "category": "Plans & Feature Gating (Basic vs Pro)",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Iniciar sesión\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Reservas\" in the main navigation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/reservations\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Reservar\" button"
+      }
+    ]
+  },
+  {
+    "id": "TC053",
+    "title": "Basic plan gating: verify upgrade notice text is visible after clicking Reservar",
+    "description": "Verifies the exact plan-gating notice appears after a Basic user attempts to reserve.",
+    "category": "Plans & Feature Gating (Basic vs Pro)",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Iniciar sesión\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Reservas\" in the main navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Reservar\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Feature not available on your plan. Upgrade required.\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC054",
+    "title": "Basic plan gating: AI Assistant access is blocked or shows upgrade message",
+    "description": "Verifies that in a Basic community the AI Assistant is not fully available and the user sees an upgrade-related message or blocking state.",
+    "category": "Plans & Feature Gating (Basic vs Pro)",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Iniciar sesión\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/home\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Asistente\" in the main navigation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/assistant\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Upgrade\" is visible"
+      }
+    ]
+  }
+]

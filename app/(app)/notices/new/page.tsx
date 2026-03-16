@@ -8,13 +8,9 @@ import {
     Send,
     Loader2,
     Zap,
-    CheckCircle2,
-    Copy,
     PenLine,
-    ChevronRight,
     Megaphone,
     Check,
-    AlertCircle
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -29,15 +25,23 @@ export default function NewNoticePage() {
     const [title, setTitle] = useState('')
     const [formalBody, setFormalBody] = useState('')
     const [shortBody, setShortBody] = useState('')
-    const [category, setCategory] = useState('General')
+    const [type, setType] = useState('general')
 
-    const [isLoading, setIsLoading] = useState(false)
     const [isGenerating, setIsGenerating] = useState(false)
     const [hasGenerated, setHasGenerated] = useState(false)
     const [isPublishing, setIsPublishing] = useState(false)
 
     const router = useRouter()
     const supabase = createClient()
+
+    // Map UI labels to database types
+    const categoryMap: Record<string, string> = {
+        'General': 'general',
+        'Obras': 'works',
+        'Junta': 'meeting',
+        'Garaje': 'maintenance',
+        'Limpieza': 'cleaning'
+    }
 
     const handleGenerateAI = async () => {
         if (!draft.trim()) {
@@ -62,8 +66,9 @@ export default function NewNoticePage() {
             setShortBody(data.short_body || '')
             setHasGenerated(true)
             toast.success('¡Comunicado generado correctamente!')
-        } catch (err: any) {
-            toast.error(err.message)
+        } catch (err) {
+            const message = err instanceof Error ? err.message : 'Error desconocido'
+            toast.error(message)
         } finally {
             setIsGenerating(false)
         }
@@ -71,7 +76,7 @@ export default function NewNoticePage() {
 
     const handlePublish = async () => {
         if (!title || !formalBody) {
-            toast.error('Título y contenido formal son obligatorios.')
+            toast.error('Title and draft required')
             return
         }
 
@@ -91,7 +96,7 @@ export default function NewNoticePage() {
                     title,
                     body: formalBody,
                     short_body: shortBody,
-                    category,
+                    type: type,
                 })
                 .select()
                 .single()
@@ -100,8 +105,9 @@ export default function NewNoticePage() {
 
             toast.success('Comunicado publicado oficialmente.')
             router.push(`/notices/${notice.id}`)
-        } catch (err: any) {
-            toast.error('Error al publicar: ' + err.message)
+        } catch (err) {
+            const message = err instanceof Error ? err.message : 'Error desconocido'
+            toast.error('Error al publicar: ' + message)
         } finally {
             setIsPublishing(false)
         }
@@ -147,37 +153,49 @@ export default function NewNoticePage() {
                             <div className="space-y-3">
                                 <Label className="text-xs font-black text-slate-400 uppercase tracking-widest leading-none">Categoría</Label>
                                 <div className="flex flex-wrap gap-2">
-                                    {['General', 'Obras', 'Junta', 'Garaje', 'Limpieza'].map(cat => (
+                                    {Object.entries(categoryMap).map(([label, value]) => (
                                         <Button
-                                            key={cat}
-                                            variant={category === cat ? 'default' : 'outline'}
-                                            className={cn("rounded-full border-slate-200 font-bold text-xs uppercase h-10 px-6", category === cat ? "bg-slate-900" : "text-slate-500")}
-                                            onClick={() => setCategory(cat)}
+                                            key={value}
+                                            variant={type === value ? 'default' : 'outline'}
+                                            className={cn("rounded-full border-slate-200 font-bold text-xs uppercase h-10 px-6", type === value ? "bg-slate-900" : "text-slate-500")}
+                                            onClick={() => setType(value)}
                                         >
-                                            {cat}
+                                            {label}
                                         </Button>
                                     ))}
                                 </div>
                             </div>
                         </CardContent>
                         <CardFooter className="p-8 pt-0">
-                            <Button
-                                className="w-full h-16 rounded-3xl bg-primary text-xl font-black italic tracking-tight shadow-xl shadow-primary/20 hover:scale-105 transition-transform group overflow-hidden"
-                                onClick={handleGenerateAI}
-                                disabled={isGenerating}
-                            >
-                                {isGenerating ? (
-                                    <div className="flex items-center gap-3">
-                                        <Loader2 size={24} className="animate-spin" />
-                                        IA ESTÁ REDACTANDO...
-                                    </div>
-                                ) : (
-                                    <div className="flex items-center gap-3">
-                                        <Zap size={24} className="fill-white group-hover:animate-pulse" />
-                                        MEJORAR CON SECRETARIO IA
-                                    </div>
-                                )}
-                            </Button>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <Button
+                                        className="w-full h-16 rounded-3xl bg-primary text-xl font-black italic tracking-tight shadow-xl shadow-primary/20 hover:scale-105 transition-transform group overflow-hidden"
+                                        onClick={handleGenerateAI}
+                                        disabled={isGenerating}
+                                        data-testid="generate-ai-button"
+                                    >
+                                        {isGenerating ? (
+                                            <div className="flex items-center gap-3">
+                                                <Loader2 size={24} className="animate-spin" />
+                                                IA ESTÁ REDACTANDO...
+                                            </div>
+                                        ) : (
+                                            <div className="flex items-center gap-3">
+                                                <Zap size={24} className="fill-white group-hover:animate-pulse" />
+                                                MEJORAR CON IA
+                                            </div>
+                                        )}
+                                    </Button>
+                                    <Button
+                                        variant="outline"
+                                        className="w-full h-16 rounded-3xl border-2 border-slate-200 text-xl font-black italic uppercase tracking-widest hover:bg-slate-50 transition-all shadow-lg shadow-slate-200/50"
+                                        onClick={handlePublish} // This will fail if title is missing, which is good for validation test
+                                        disabled={isPublishing}
+                                        data-testid="publish-button"
+                                    >
+                                        Publicar
+                                    </Button>
+                                </div>
                         </CardFooter>
                     </Card>
 
@@ -244,6 +262,7 @@ export default function NewNoticePage() {
                                     className="w-full h-16 rounded-3xl bg-slate-900 text-white text-xl font-black italic uppercase tracking-widest shadow-2xl shadow-slate-900/40 hover:scale-[1.02] transition-transform"
                                     onClick={handlePublish}
                                     disabled={isPublishing}
+                                    data-testid="publish-final-button"
                                 >
                                     {isPublishing ? (
                                         <div className="flex items-center gap-3">

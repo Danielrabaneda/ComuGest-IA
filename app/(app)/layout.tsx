@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { createClient } from '@/lib/supabase/client'
 import {
     Home,
@@ -35,10 +36,14 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     useEffect(() => {
         const fetchProfile = async () => {
             const { data: { user } } = await supabase.auth.getUser()
+            
             if (!user) {
+                console.log('DEBUG: No user session found, redirecting to login')
                 router.push('/login')
                 return
             }
+
+            console.log('DEBUG: Active User ID:', user.id, 'Email:', user.email)
 
             const { data, error } = await supabase
                 .from('profiles')
@@ -47,8 +52,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 .single()
 
             if (error) {
-                console.error('Error fetching profile:', error)
+                console.error('DEBUG: Error fetching profile:', error)
             } else {
+                console.log('DEBUG: Profile loaded:', data.full_name, 'Community:', data.community_id)
                 setProfile(data as Profile)
             }
             setIsLoading(false)
@@ -58,9 +64,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     }, [supabase, router])
 
     const handleLogout = async () => {
+        console.log('DEBUG: Performing logout...')
         await supabase.auth.signOut()
-        router.refresh()
-        router.push('/login')
+        // Force a hard refresh to clear all possible caches and state
+        window.location.href = '/login'
     }
 
     const navigation = [
@@ -81,7 +88,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     if (isLoading) {
         return (
             <div className="flex items-center justify-center h-screen bg-slate-50">
-                <Zap className="animate-pulse text-primary h-12 w-12" />
+                <Image src="/logo.png" alt="ComuGest IA Logo" width={280} height={280} className="animate-pulse" />
             </div>
         )
     }
@@ -153,15 +160,23 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 "fixed inset-y-0 left-0 bg-white border-r w-72 transform transition-transform duration-200 ease-in-out z-50 lg:relative lg:translate-x-0 overflow-y-auto",
                 isSidebarOpen ? "translate-x-0" : "-translate-x-full"
             )}>
-                <div className="p-6 flex flex-col h-full">
-                    <div className="flex items-center gap-2 mb-10">
-                        <div className="bg-primary p-2 rounded-xl text-white shadow-md shadow-primary/20">
-                            <Zap size={24} />
+                <div className="p-6 flex flex-col h-full relative">
+                    <Button 
+                        variant="ghost" 
+                        size="icon" 
+                        className="absolute top-4 right-4 lg:hidden" 
+                        onClick={() => setIsSidebarOpen(false)}
+                    >
+                        <X size={20} />
+                    </Button>
+
+                    <div className="flex flex-col items-center gap-4 mb-10 pt-4">
+                        <div className="bg-white p-5 rounded-[2.5rem] shadow-2xl border border-slate-100">
+                            <Image src="/logo-icon.png" alt="Logo" width={112} height={112} className="object-contain" />
                         </div>
-                        <span className="font-bold text-xl tracking-tight">ComuGest IA</span>
-                        <Button variant="ghost" size="icon" className="ml-auto lg:hidden" onClick={() => setIsSidebarOpen(false)}>
-                            <X size={20} />
-                        </Button>
+                        <span className="font-bold text-3xl tracking-tighter text-slate-900">
+                            ComuGest<span className="text-[#41B7C1]"> - IA</span>
+                        </span>
                     </div>
 
                     <nav className="space-y-1.5 flex-1">
@@ -223,7 +238,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                 </p>
                             </div>
                         )}
-                        <div className="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest border border-primary/20">
+                        <div className="bg-[#41B7C1]/10 text-[#41B7C1] px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest border border-[#41B7C1]/20 shadow-sm shadow-[#41B7C1]/5">
                             Plan {profile?.communities?.plan || 'basic'}
                         </div>
                     </div>

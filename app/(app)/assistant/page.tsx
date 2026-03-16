@@ -13,6 +13,9 @@ import {
 } from 'lucide-react'
 import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
+import { createClient } from '@/lib/supabase/client'
+import { PLAN_FEATURES } from '@/types'
+import Link from 'next/link'
 
 type Message = {
     role: 'user' | 'assistant'
@@ -30,7 +33,30 @@ export default function AssistantPage() {
     ])
     const [input, setInput] = useState('')
     const [isLoading, setIsLoading] = useState(false)
+    const [isBlocked, setIsBlocked] = useState(false)
+    const [isCheckingPlan, setIsCheckingPlan] = useState(true)
     const messagesEndRef = useRef<HTMLDivElement>(null)
+    const supabase = createClient()
+
+    useEffect(() => {
+        const checkPlan = async () => {
+            const { data: { user } } = await supabase.auth.getUser()
+            if (!user) return
+
+            const { data: profile } = await supabase
+                .from('profiles')
+                .select('*, communities(*)')
+                .eq('id', user.id)
+                .single()
+
+            const plan = profile?.communities?.plan || 'basic'
+            if (!PLAN_FEATURES[plan as 'basic' | 'pro'].ai_chat) {
+                setIsBlocked(true)
+            }
+            setIsCheckingPlan(false)
+        }
+        checkPlan()
+    }, [supabase])
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -228,7 +254,41 @@ export default function AssistantPage() {
                 </button>
             </div>
 
+            {/* Blocked Overlay */}
+            {isBlocked && (
+                <div className="absolute inset-0 z-[100] bg-slate-900/95 backdrop-blur-md flex flex-col items-center justify-center p-8 text-center animate-in fade-in duration-500">
+                    <div className="w-20 h-20 bg-primary/20 rounded-[30px] flex items-center justify-center mb-8 ring-8 ring-primary/10">
+                        <Bot size={40} className="text-primary" />
+                    </div>
+                    <h2 className="text-3xl font-black text-white italic tracking-tighter uppercase mb-4">Secretario IA Bloqueado</h2>
+                    <p className="text-slate-400 font-medium text-lg leading-relaxed mb-10 max-w-sm">
+                        La gestión inteligente y el chat con el Secretario IA son exclusivos para comunidades con el <span className="text-primary font-bold">Plan Pro Vecinal</span>.
+                    </p>
+                    <Link href="/admin" className="w-full max-w-xs">
+                        <Button className="w-full h-14 rounded-2xl bg-primary hover:bg-primary/90 text-white font-black italic uppercase text-sm tracking-widest shadow-2xl shadow-primary/20 transition-transform active:scale-95">
+                            Mejorar mi Plan
+                        </Button>
+                    </Link>
+                    <Link href="/home" className="mt-6 text-slate-500 font-bold text-sm uppercase tracking-widest hover:text-white transition-colors">
+                        Volver al Inicio
+                    </Link>
+                </div>
+            )}
+
+            {isCheckingPlan && (
+                <div className="absolute inset-0 z-[100] bg-white flex items-center justify-center">
+                    <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+                </div>
+            )}
         </div>
+    )
+}
+
+function Button({ className, children, ...props }: any) {
+    return (
+        <button className={cn("inline-flex items-center justify-center transition-all", className)} {...props}>
+            {children}
+        </button>
     )
 }
 

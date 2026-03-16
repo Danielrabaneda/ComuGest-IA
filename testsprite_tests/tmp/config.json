@@ -1,0 +1,20 @@
+{
+  "status": "commited",
+  "type": "frontend",
+  "scope": "codebase",
+  "localEndpoint": "http://localhost:3000",
+  "loginUser": "danidos@hotmail.com",
+  "loginPassword": "DaNi26",
+  "executionArgs": {
+    "projectName": "comugest-ia",
+    "projectPath": "c:\\Proyectos\\comugest-ia",
+    "testIds": [],
+    "additionalInstruction": "La aplicación está corriendo en el puerto 3000 de Next.js. Pruebas como un potencial administrador de fincas. Hay algunos tests que fallaban por motivos de localización (inglés frente a español). Asegúrate de que las aserciones validen la UI en español. No elimines avisos para evitar que fallen pruebas posteriores, ya sabemos que el panel no está vacío. Solo valida la funcionalidad fundamental.",
+    "serverMode": "development",
+    "envs": {
+      "API_KEY": "sk-user-Nk3UVRCDW_PZEZ4vHB1Y8DDXGijoQgUH-6dpvvRnPRcZo0Xsr6hT9kIKosTQbIk5rPC4yTc0WLh_RkvLGhBKzBj05oVIw6bZeb4NiUXi3SLCMDG_cP5yp2MkjdhO3VLAhyA"
+    }
+  },
+  "serverPort": 59871,
+  "proxy": "http://afb72ef8-7571-464e-9d0c-7f167d7267f2:CwVaWdfNQeUimaIesvGhNUBKcmvAwJU9@tun.testsprite.com:8080"
+}

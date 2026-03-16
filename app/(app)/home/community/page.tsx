@@ -10,6 +10,7 @@ import { Profile, Community } from '@/types'
 
 export default function CommunityInfoPage() {
     const [community, setCommunity] = useState<Community | null>(null)
+    const [adminContacts, setAdminContacts] = useState<Profile[]>([])
     const [isLoading, setIsLoading] = useState(true)
     const supabase = createClient()
 
@@ -34,6 +35,16 @@ export default function CommunityInfoPage() {
 
                     if (communityData) {
                         setCommunity(communityData as Community)
+                        
+                        const { data: adminsData } = await supabase
+                            .from('profiles')
+                            .select('*')
+                            .eq('community_id', communityData.id)
+                            .in('role', ['admin', 'president'])
+                            
+                        if (adminsData) {
+                            setAdminContacts(adminsData as Profile[])
+                        }
                     }
                 }
             }
@@ -131,27 +142,54 @@ export default function CommunityInfoPage() {
                         <CardDescription>Contacto de los gestores o presidente</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                        <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                            <div className="flex items-center gap-3">
-                                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-                                    <User size={14} className="text-primary" />
+                        {adminContacts.length === 0 ? (
+                            <p className="text-sm text-slate-500 italic">No hay información de administrador disponible.</p>
+                        ) : (
+                            adminContacts.map((admin) => (
+                                <div key={admin.id} className="border-b border-slate-100 pb-4 last:border-0 last:pb-0">
+                                    <div className="flex items-center justify-between mb-3">
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                                                <User size={14} className="text-primary" />
+                                            </div>
+                                            <div>
+                                                <p className="text-sm font-bold text-slate-800">{admin.full_name || 'Administrador'}</p>
+                                                <p className="text-xs text-slate-500 capitalize">{admin.role === 'president' ? 'Presidente' : 'Administrador de Fincas'}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="flex flex-col gap-2 pl-11">
+                                        {admin.phone && (
+                                            <div className="flex items-center gap-2 text-sm text-slate-600">
+                                                <Phone size={14} className="text-slate-400 shrink-0" />
+                                                <span>{admin.phone}</span>
+                                            </div>
+                                        )}
+                                        {admin.email && (
+                                            <div className="flex items-center gap-2 text-sm text-slate-600">
+                                                <Mail size={14} className="text-slate-400 shrink-0" />
+                                                <span>{admin.email}</span>
+                                            </div>
+                                        )}
+                                        {admin.office_address && (
+                                            <div className="flex items-start gap-2 text-sm text-slate-600 mt-1">
+                                                <MapPin size={14} className="text-slate-400 mt-0.5 shrink-0" />
+                                                <span>{admin.office_address}</span>
+                                            </div>
+                                        )}
+                                        {admin.office_hours && (
+                                            <div className="flex items-start gap-2 text-sm text-slate-600">
+                                                <Clock size={14} className="text-slate-400 mt-0.5 shrink-0" />
+                                                <span>{admin.office_hours}</span>
+                                            </div>
+                                        )}
+                                        {!admin.phone && !admin.email && !admin.office_address && (
+                                            <p className="text-xs text-slate-400 italic">No se han proporcionado datos de contacto.</p>
+                                        )}
+                                    </div>
                                 </div>
-                                <div>
-                                    <p className="text-sm font-bold text-slate-800">Gestoría Fincas Sur</p>
-                                    <p className="text-xs text-slate-500">Administrador</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="flex flex-col gap-2 pt-1">
-                            <div className="flex items-center gap-2 text-sm text-slate-600">
-                                <Phone size={14} className="text-slate-400" />
-                                <span>912 345 678</span>
-                            </div>
-                            <div className="flex items-center gap-2 text-sm text-slate-600">
-                                <Mail size={14} className="text-slate-400" />
-                                <span>info@fincassur.com</span>
-                            </div>
-                        </div>
+                            ))
+                        )}
                     </CardContent>
                 </Card>
 

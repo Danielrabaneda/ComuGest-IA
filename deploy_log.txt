@@ -1,0 +1,9 @@
+﻿
+======================================
+  ComuGest IA - Despliegue al SVP
+======================================
+
+[1/7] Conectando a 217.160.224.132 (usando llave SSH)...
+ADVERTENCIA: Host key is not being verified
+ since Force switch is used.
+ERROR al conectar: Permission denied (publickey).

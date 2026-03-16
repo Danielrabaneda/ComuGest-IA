@@ -3,7 +3,8 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { Loader2, Zap } from 'lucide-react'
+import { Loader2 } from 'lucide-react'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -36,7 +37,7 @@ export default function LoginPage() {
                 router.push('/home')
                 router.refresh()
             }
-        } catch (err) {
+        } catch {
             toast.error('Ocurrió un error inesperado al iniciar sesión.')
         } finally {
             setIsLoading(false)
@@ -60,7 +61,7 @@ export default function LoginPage() {
             } else {
                 toast.success('¡Enlace de acceso enviado! Revisa tu email.')
             }
-        } catch (err) {
+        } catch {
             toast.error('Ocurrió un error inesperado.')
         } finally {
             setIsLoading(false)
@@ -71,12 +72,13 @@ export default function LoginPage() {
         <div className="flex min-h-screen items-center justify-center p-4 bg-slate-50">
             <Card className="w-full max-w-md shadow-xl border-none">
                 <CardHeader className="space-y-1 text-center">
-                    <div className="flex justify-center mb-4">
-                        <div className="bg-primary p-3 rounded-2xl text-white shadow-lg shadow-primary/20">
-                            <Zap size={32} />
+                    <h1 className="sr-only">Login</h1>
+                    <div className="flex justify-center mb-8">
+                        <div className="bg-white p-6 rounded-[3rem] shadow-2xl border border-slate-100">
+                            <Image src="/logo.png" alt="ComuGest IA Logo" width={200} height={200} className="object-contain" />
                         </div>
                     </div>
-                    <CardTitle className="text-3xl font-bold tracking-tight">ComuGest IA</CardTitle>
+                    <CardTitle className="text-3xl font-bold tracking-tight">ComuGest<span className="text-[#41B7C1]"> - IA</span></CardTitle>
                     <CardDescription className="text-lg">
                         Gestión inteligente para tu comunidad
                     </CardDescription>
@@ -96,22 +98,24 @@ export default function LoginPage() {
                             />
                         </div>
                         {!isMagicLink && (
-                            <div className="space-y-2">
-                                <div className="flex items-center justify-between">
-                                    <Label htmlFor="password">Contraseña</Label>
-                                    <Button variant="link" className="px-0 font-normal text-muted-foreground" size="sm" type="button">
-                                        ¿Olvidaste tu contraseña?
-                                    </Button>
+                            <>
+                                <div className="space-y-2">
+                                    <div className="flex items-center justify-between">
+                                        <Label htmlFor="password">Contraseña</Label>
+                                        <Button variant="link" className="px-0 font-normal text-muted-foreground" size="sm" type="button">
+                                            ¿Olvidaste tu contraseña?
+                                        </Button>
+                                    </div>
+                                    <Input
+                                        id="password"
+                                        type="password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        required
+                                        className="h-12 text-lg"
+                                    />
                                 </div>
-                                <Input
-                                    id="password"
-                                    type="password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    required
-                                    className="h-12 text-lg"
-                                />
-                            </div>
+                            </>
                         )}
                         <Button className="w-full h-12 text-lg font-semibold" type="submit" disabled={isLoading}>
                             {isLoading && <Loader2 className="mr-2 h-5 w-5 animate-spin" />}

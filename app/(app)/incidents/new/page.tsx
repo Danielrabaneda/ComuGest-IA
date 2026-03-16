@@ -104,16 +104,24 @@ export default function NewIncidentPage() {
                         continue
                     }
 
-                    // Important: Get public (or signed) URL. RLS allows select.
-                    const { data: { publicUrl } } = supabase.storage
+                    // 108: Get public URL
+                    const { data } = supabase.storage
                         .from('incident-attachments')
                         .getPublicUrl(filePath)
 
-                    await supabase.from('incident_attachments').insert({
+                    const publicUrl = data.publicUrl
+                    console.log('Generated public URL:', publicUrl)
+
+                    const { error: insertError } = await supabase.from('incident_attachments').insert({
                         incident_id: incident.id,
                         file_url: publicUrl,
                         file_type: file.type.startsWith('image/') ? 'image' : 'other'
                     })
+
+                    if (insertError) {
+                        console.error('Error inserting attachment record:', insertError)
+                        toast.error(`Error al registrar foto: ${file.name}`)
+                    }
                 }
             }
 

@@ -1,36 +1,40 @@
 import { createClient } from '@/lib/supabase/server'
-import { redirect, notFound } from 'next/navigation'
+import { notFound } from 'next/navigation'
 import {
     ArrowLeft,
-    Clock,
     Megaphone,
-    User,
-    Info,
     Calendar,
     Share2,
     Printer,
-    ChevronRight,
-    TrendingUp,
     ArrowRight
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardFooter } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import Link from 'next/link'
 import { formatDistanceToNow } from 'date-fns'
 import { es } from 'date-fns/locale'
-import { cn } from '@/lib/utils'
+import { DeleteNoticeButton } from './DeleteNoticeButton'
 
 export const dynamic = 'force-dynamic'
 
-export default async function NoticeDetailPage({ params }: { params: { id: string } }) {
+export default async function NoticeDetailPage({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params
     const supabase = await createClient()
 
     const { data: notice, error } = await supabase
         .from('notices')
-        .select(`*, profiles:created_by(full_name, role)`)
-        .eq('id', params.id)
+        .select(`*, profiles(full_name, role)`)
+        .eq('id', id)
         .single()
+
+    const { data: { user } } = await supabase.auth.getUser()
+    let isAdmin = false
+
+    if (user) {
+        const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single()
+        isAdmin = profile?.role === 'admin' || profile?.role === 'president'
+    }
 
     if (error || !notice) {
         return notFound()
@@ -45,6 +49,7 @@ export default async function NoticeDetailPage({ params }: { params: { id: strin
                     </Button>
                 </Link>
                 <div className="flex gap-2">
+                    {isAdmin && <DeleteNoticeButton noticeId={id} />}
                     <Button variant="outline" className="rounded-xl border-slate-200 text-slate-500 font-bold h-10 px-4 flex items-center gap-2">
                         <Printer size={18} /> Imprimir
                     </Button>
