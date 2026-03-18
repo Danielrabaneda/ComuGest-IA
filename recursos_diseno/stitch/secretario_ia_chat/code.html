@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Secretario IA Chat</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#3c3cf6",
+                        "background-light": "#f5f5f8",
+                        "background-dark": "#101022",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex h-[100dvh] w-full max-w-md mx-auto flex-col overflow-x-hidden border-x border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+<!-- Top App Bar -->
+<div class="flex items-center p-4 justify-between border-b border-slate-100 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md sticky top-0 z-10">
+<button class="flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 transition-colors">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Secretario IA</h2>
+<button class="flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<!-- Chat Area -->
+<div class="flex-1 overflow-y-auto p-4 flex flex-col gap-6">
+<!-- AI Message -->
+<div class="flex items-end gap-3">
+<div class="bg-primary/10 dark:bg-primary/20 aspect-square rounded-full w-10 shrink-0 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-xl">smart_toy</span>
+</div>
+<div class="flex flex-1 flex-col gap-1 items-start">
+<p class="text-slate-500 dark:text-slate-400 text-xs font-medium ml-1">Secretario IA</p>
+<p class="text-[15px] font-normal leading-relaxed flex max-w-[85%] rounded-2xl rounded-bl-sm px-4 py-3 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200">
+                        Hola, soy el Secretario IA de ComuGest. ¿En qué puedo ayudarte hoy con la administración de tu propiedad?
+                    </p>
+</div>
+</div>
+<!-- User Message -->
+<div class="flex items-end gap-3 justify-end">
+<div class="flex flex-1 flex-col gap-1 items-end">
+<p class="text-[15px] font-normal leading-relaxed flex max-w-[85%] rounded-2xl rounded-br-sm px-4 py-3 bg-primary text-white shadow-sm shadow-primary/20">
+                        ¿Cuáles son las reglas de la piscina para este fin de semana?
+                    </p>
+</div>
+</div>
+<!-- AI Message -->
+<div class="flex items-end gap-3">
+<div class="bg-primary/10 dark:bg-primary/20 aspect-square rounded-full w-10 shrink-0 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-xl">smart_toy</span>
+</div>
+<div class="flex flex-1 flex-col gap-1 items-start">
+<p class="text-slate-500 dark:text-slate-400 text-xs font-medium ml-1">Secretario IA</p>
+<p class="text-[15px] font-normal leading-relaxed flex max-w-[85%] rounded-2xl rounded-bl-sm px-4 py-3 bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200">
+                        El horario de la piscina para fines de semana es de 9:00 a 22:00. Recuerda que no se permiten botellas de vidrio en el área y el aforo máximo es de 15 personas. ¿Necesitas reservar un horario?
+                    </p>
+</div>
+</div>
+<!-- Quick Replies -->
+<div class="flex gap-2 pl-12 pr-4 overflow-x-auto pb-2 scrollbar-hide">
+<button class="whitespace-nowrap px-4 py-1.5 rounded-full border border-primary/30 text-primary text-sm font-medium hover:bg-primary/5 transition-colors">Sí, reservar</button>
+<button class="whitespace-nowrap px-4 py-1.5 rounded-full border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">Ver pagos pendientes</button>
+</div>
+</div>
+<!-- Input Area -->
+<div class="p-3 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900">
+<div class="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 rounded-full pl-4 pr-1.5 py-1.5">
+<input class="flex-1 bg-transparent border-none focus:ring-0 text-[15px] text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500" placeholder="Pregunta sobre reglas, pagos..." type="text"/>
+<button class="p-2 text-slate-400 hover:text-primary transition-colors rounded-full">
+<span class="material-symbols-outlined">attach_file</span>
+</button>
+<button class="size-9 bg-primary text-white rounded-full flex items-center justify-center shadow-sm shadow-primary/30 hover:bg-primary/90 transition-colors">
+<span class="material-symbols-outlined text-[20px] ml-0.5">send</span>
+</button>
+</div>
+<!-- SafeArea padding for iOS -->
+<div class="h-5"></div>
+</div>
+</div>
+</body></html>

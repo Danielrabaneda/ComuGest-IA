@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Avisos de la Comunidad - ComuGest IA</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#3c3cf6",
+                        "background-light": "#f5f5f8",
+                        "background-dark": "#101022",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen flex flex-col antialiased">
+<!-- Header -->
+<header class="flex flex-col gap-2 bg-background-light dark:bg-background-dark p-4 pb-2 sticky top-0 z-10">
+<div class="flex items-center h-12 justify-between">
+<button aria-label="Menu" class="flex size-12 shrink-0 items-center justify-center text-slate-900 dark:text-slate-100 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined text-2xl">menu</span>
+</button>
+<div class="flex w-12 items-center justify-end">
+<button aria-label="Search" class="flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 w-12 bg-transparent text-slate-900 dark:text-slate-100 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined text-2xl">search</span>
+</button>
+</div>
+</div>
+<h1 class="text-slate-900 dark:text-slate-100 tracking-tight text-[28px] font-bold leading-tight px-1">Avisos de la Comunidad</h1>
+</header>
+<!-- Filters -->
+<div class="flex gap-3 p-4 overflow-x-auto no-scrollbar bg-background-light dark:bg-background-dark sticky top-[104px] z-10 border-b border-slate-200 dark:border-slate-800">
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary text-white px-5 transition-colors">
+<span class="text-sm font-semibold leading-normal">Todos</span>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 px-5 transition-colors">
+<span class="text-sm font-medium leading-normal">Obras</span>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 px-5 transition-colors">
+<span class="text-sm font-medium leading-normal">Reuniones</span>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 px-5 transition-colors">
+<span class="text-sm font-medium leading-normal">General</span>
+</button>
+</div>
+<!-- Announcements List -->
+<main class="flex-1 overflow-y-auto pb-24 px-4 pt-4 flex flex-col gap-3">
+<!-- Announcement Card 1 -->
+<a class="flex gap-4 bg-white dark:bg-slate-900 p-4 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 hover:shadow-md transition-shadow" href="#">
+<div class="flex items-center justify-center rounded-full bg-primary/10 dark:bg-primary/20 text-primary shrink-0 size-12">
+<span class="material-symbols-outlined">build</span>
+</div>
+<div class="flex flex-1 flex-col justify-center gap-1">
+<h2 class="text-slate-900 dark:text-slate-100 text-base font-semibold leading-snug">Mantenimiento de Ascensores Torre B</h2>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center rounded-md bg-amber-100 dark:bg-amber-900/30 px-2 py-1 text-xs font-medium text-amber-800 dark:text-amber-300 ring-1 ring-inset ring-amber-600/20">Obras</span>
+<span class="text-slate-500 dark:text-slate-400 text-sm font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+                        10 Nov - 12 Nov
+                    </span>
+</div>
+</div>
+<div class="shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-400 dark:text-slate-500">chevron_right</span>
+</div>
+</a>
+<!-- Announcement Card 2 -->
+<a class="flex gap-4 bg-white dark:bg-slate-900 p-4 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 hover:shadow-md transition-shadow" href="#">
+<div class="flex items-center justify-center rounded-full bg-primary/10 dark:bg-primary/20 text-primary shrink-0 size-12">
+<span class="material-symbols-outlined">groups</span>
+</div>
+<div class="flex flex-1 flex-col justify-center gap-1">
+<h2 class="text-slate-900 dark:text-slate-100 text-base font-semibold leading-snug">Asamblea Anual Ordinaria</h2>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center rounded-md bg-blue-100 dark:bg-blue-900/30 px-2 py-1 text-xs font-medium text-blue-800 dark:text-blue-300 ring-1 ring-inset ring-blue-600/20">Reuniones</span>
+<span class="text-slate-500 dark:text-slate-400 text-sm font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+                        15 Nov, 19:00h
+                    </span>
+</div>
+</div>
+<div class="shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-400 dark:text-slate-500">chevron_right</span>
+</div>
+</a>
+<!-- Announcement Card 3 -->
+<a class="flex gap-4 bg-white dark:bg-slate-900 p-4 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 hover:shadow-md transition-shadow" href="#">
+<div class="flex items-center justify-center rounded-full bg-primary/10 dark:bg-primary/20 text-primary shrink-0 size-12">
+<span class="material-symbols-outlined">water_drop</span>
+</div>
+<div class="flex flex-1 flex-col justify-center gap-1">
+<h2 class="text-slate-900 dark:text-slate-100 text-base font-semibold leading-snug">Corte de Agua Programado</h2>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center rounded-md bg-amber-100 dark:bg-amber-900/30 px-2 py-1 text-xs font-medium text-amber-800 dark:text-amber-300 ring-1 ring-inset ring-amber-600/20">Obras</span>
+<span class="text-slate-500 dark:text-slate-400 text-sm font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+                        18 Nov, 08:00 - 14:00
+                    </span>
+</div>
+</div>
+<div class="shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-400 dark:text-slate-500">chevron_right</span>
+</div>
+</a>
+<!-- Announcement Card 4 -->
+<a class="flex gap-4 bg-white dark:bg-slate-900 p-4 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 hover:shadow-md transition-shadow" href="#">
+<div class="flex items-center justify-center rounded-full bg-primary/10 dark:bg-primary/20 text-primary shrink-0 size-12">
+<span class="material-symbols-outlined">campaign</span>
+</div>
+<div class="flex flex-1 flex-col justify-center gap-1">
+<h2 class="text-slate-900 dark:text-slate-100 text-base font-semibold leading-snug">Nuevas normas de uso de piscina</h2>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center rounded-md bg-emerald-100 dark:bg-emerald-900/30 px-2 py-1 text-xs font-medium text-emerald-800 dark:text-emerald-300 ring-1 ring-inset ring-emerald-600/20">General</span>
+<span class="text-slate-500 dark:text-slate-400 text-sm font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+                        Permanente
+                    </span>
+</div>
+</div>
+<div class="shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-slate-400 dark:text-slate-500">chevron_right</span>
+</div>
+</a>
+</main>
+<!-- Bottom Nav Bar -->
+<nav class="fixed bottom-0 left-0 right-0 border-t border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-4 pb-safe pt-2 z-50">
+<div class="flex justify-between items-center max-w-md mx-auto h-16">
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-2xl">home</span>
+<span class="text-[10px] font-medium tracking-wide">Inicio</span>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">notifications</span>
+<span class="text-[10px] font-bold tracking-wide">Avisos</span>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-2xl">event</span>
+<span class="text-[10px] font-medium tracking-wide">Reservas</span>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-2xl">person</span>
+<span class="text-[10px] font-medium tracking-wide">Perfil</span>
+</a>
+</div>
+</nav>
+<style>
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        .pb-safe {
+            padding-bottom: env(safe-area-inset-bottom, 16px);
+        }
+    </style>
+</body></html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mis Incidencias</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "primary": "#3c3cf6",
+          "background-light": "#f5f5f8",
+          "background-dark": "#101022",
+        },
+        fontFamily: {
+          "display": ["Inter", "sans-serif"]
+        },
+        borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+      },
+    },
+  }
+</script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-background-light overflow-x-hidden">
+<div class="flex items-center bg-background-light p-4 pb-2 justify-between">
+<div class="text-slate-900 flex size-12 shrink-0 items-center justify-start">
+<span class="material-symbols-outlined text-2xl">arrow_back</span>
+</div>
+<h2 class="text-slate-900 text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12">Mis Incidencias</h2>
+<div class="absolute right-4 top-4 flex h-12 items-center justify-end">
+<button class="text-primary text-base font-semibold leading-normal shrink-0">New</button>
+</div>
+</div>
+<div class="px-4 py-3">
+<label class="flex flex-col min-w-40 h-12 w-full">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full border border-slate-200 bg-white">
+<div class="text-slate-400 flex items-center justify-center pl-4 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined text-xl">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-slate-900 focus:outline-0 focus:ring-0 border-none bg-transparent focus:border-none h-full placeholder:text-slate-400 px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search incidents..." value=""/>
+</div>
+</label>
+</div>
+<div class="flex gap-2 px-4 py-2 overflow-x-auto no-scrollbar">
+<button class="flex h-8 shrink-0 items-center justify-center gap-x-1 rounded-full bg-white border border-slate-200 px-3 py-1 shadow-sm">
+<p class="text-slate-700 text-sm font-medium leading-normal">Status</p>
+<span class="material-symbols-outlined text-lg text-slate-500">arrow_drop_down</span>
+</button>
+<button class="flex h-8 shrink-0 items-center justify-center gap-x-1 rounded-full bg-white border border-slate-200 px-3 py-1 shadow-sm">
+<p class="text-slate-700 text-sm font-medium leading-normal">Category</p>
+<span class="material-symbols-outlined text-lg text-slate-500">arrow_drop_down</span>
+</button>
+<button class="flex h-8 shrink-0 items-center justify-center gap-x-1 rounded-full bg-white border border-slate-200 px-3 py-1 shadow-sm">
+<p class="text-slate-700 text-sm font-medium leading-normal">Priority</p>
+<span class="material-symbols-outlined text-lg text-slate-500">arrow_drop_down</span>
+</button>
+</div>
+<div class="flex flex-col gap-3 px-4 py-4">
+<!-- Incident Card 1 -->
+<div class="flex flex-col bg-white rounded-xl shadow-sm border border-slate-100 p-4 gap-3">
+<div class="flex justify-between items-start">
+<div class="flex gap-3">
+<div class="flex items-center justify-center rounded-lg bg-primary/10 text-primary shrink-0 size-10">
+<span class="material-symbols-outlined text-xl">elevator</span>
+</div>
+<div>
+<h3 class="text-slate-900 text-base font-semibold leading-tight">Elevator broken in Building A</h3>
+<p class="text-slate-500 text-sm font-normal mt-0.5">Common Areas • 12 Oct 2023</p>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">Open</span>
+<span class="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">High Priority</span>
+</div>
+</div>
+<!-- Incident Card 2 -->
+<div class="flex flex-col bg-white rounded-xl shadow-sm border border-slate-100 p-4 gap-3">
+<div class="flex justify-between items-start">
+<div class="flex gap-3">
+<div class="flex items-center justify-center rounded-lg bg-primary/10 text-primary shrink-0 size-10">
+<span class="material-symbols-outlined text-xl">directions_car</span>
+</div>
+<div>
+<h3 class="text-slate-900 text-base font-semibold leading-tight">Garage door stuck</h3>
+<p class="text-slate-500 text-sm font-normal mt-0.5">Parking • 10 Oct 2023</p>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">In Progress</span>
+<span class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">Medium Priority</span>
+</div>
+</div>
+<!-- Incident Card 3 -->
+<div class="flex flex-col bg-white rounded-xl shadow-sm border border-slate-100 p-4 gap-3 opacity-70">
+<div class="flex justify-between items-start">
+<div class="flex gap-3">
+<div class="flex items-center justify-center rounded-lg bg-slate-100 text-slate-500 shrink-0 size-10">
+<span class="material-symbols-outlined text-xl">water_drop</span>
+</div>
+<div>
+<h3 class="text-slate-900 text-base font-semibold leading-tight">Water leak in pool area</h3>
+<p class="text-slate-500 text-sm font-normal mt-0.5">Amenities • 05 Oct 2023</p>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center rounded-md bg-slate-50 px-2 py-1 text-xs font-medium text-slate-600 ring-1 ring-inset ring-slate-500/10">Resolved</span>
+<span class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">Low Priority</span>
+</div>
+</div>
+</div>
+<div class="h-6"></div>
+</div>
+</body></html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Panel de Inicio Vecino - ComuGest IA</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#3c3cf6",
+                        "background-light": "#f5f5f8",
+                        "background-dark": "#101022",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display min-h-screen flex flex-col antialiased">
+<!-- Top Bar -->
+<div class="flex items-center bg-white dark:bg-slate-900 px-4 py-3 justify-between sticky top-0 z-10 border-b border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center gap-3 flex-1 min-w-0">
+<div class="text-primary flex size-10 shrink-0 items-center justify-center bg-primary/10 rounded-lg">
+<span class="material-symbols-outlined" style="font-size: 24px;">apartment</span>
+</div>
+<div class="flex flex-col min-w-0">
+<p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Comunidad Activa</p>
+<h2 class="text-slate-900 dark:text-slate-100 text-base font-bold leading-tight truncate">Residencial Los Pinos</h2>
+</div>
+<span class="material-symbols-outlined text-slate-400 cursor-pointer" style="font-size: 20px;">expand_more</span>
+</div>
+<div class="flex shrink-0 items-center justify-end pl-4">
+<button class="flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 w-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+<span class="material-symbols-outlined" style="font-size: 20px;">person</span>
+</button>
+</div>
+</div>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto pb-24 px-4 pt-4 space-y-6">
+<!-- Welcome & Quick Action -->
+<div class="flex flex-col gap-4">
+<div>
+<h1 class="text-2xl font-bold">Hola, Carlos</h1>
+<p class="text-sm text-slate-500 dark:text-slate-400">¿Qué necesitas hacer hoy?</p>
+</div>
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-colors shadow-md shadow-primary/20">
+<span class="material-symbols-outlined">add_circle</span>
+                Nuevo Incidente
+            </button>
+</div>
+<!-- Latest Announcements -->
+<section>
+<div class="flex items-center justify-between mb-3">
+<h3 class="text-lg font-bold">Últimos Avisos</h3>
+<a class="text-sm text-primary font-medium hover:underline" href="#">Ver todos</a>
+</div>
+<div class="flex gap-4 overflow-x-auto pb-2 snap-x hide-scrollbar">
+<!-- Announcement Card 1 -->
+<div class="min-w-[280px] bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 snap-center shadow-sm">
+<div class="flex items-start gap-3">
+<div class="bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 p-2 rounded-lg shrink-0">
+<span class="material-symbols-outlined" style="font-size: 20px;">campaign</span>
+</div>
+<div>
+<h4 class="font-semibold text-sm mb-1">Corte de agua programado</h4>
+<p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2">Mañana de 10:00 a 14:00 hrs por mantenimiento preventivo en cisternas.</p>
+<span class="text-[10px] text-slate-400 mt-2 block">Hace 2 horas</span>
+</div>
+</div>
+</div>
+<!-- Announcement Card 2 -->
+<div class="min-w-[280px] bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 snap-center shadow-sm">
+<div class="flex items-start gap-3">
+<div class="bg-primary/10 text-primary p-2 rounded-lg shrink-0">
+<span class="material-symbols-outlined" style="font-size: 20px;">event</span>
+</div>
+<div>
+<h4 class="font-semibold text-sm mb-1">Reunión de Asamblea</h4>
+<p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2">Próximo viernes a las 19:00 hrs en el SUM. Asistencia obligatoria.</p>
+<span class="text-[10px] text-slate-400 mt-2 block">Ayer</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Upcoming Bookings -->
+<section>
+<h3 class="text-lg font-bold mb-3">Tus Reservas</h3>
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-4 shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="bg-primary/10 text-primary p-2.5 rounded-lg">
+<span class="material-symbols-outlined" style="font-size: 24px;">sports_tennis</span>
+</div>
+<div>
+<h4 class="font-semibold text-sm">Cancha de Tenis</h4>
+<p class="text-xs text-slate-500 dark:text-slate-400">Hoy, 18:00 - 19:00 hrs</p>
+</div>
+</div>
+<button class="text-primary text-sm font-medium px-3 py-1.5 bg-primary/5 rounded-lg hover:bg-primary/10">Ver</button>
+</div>
+</section>
+<!-- Recent Incidents -->
+<section>
+<div class="flex items-center justify-between mb-3">
+<h3 class="text-lg font-bold">Incidentes Recientes</h3>
+<a class="text-sm text-primary font-medium hover:underline" href="#">Historial</a>
+</div>
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
+<!-- Incident 1 -->
+<div class="flex items-center gap-4 p-4 border-b border-slate-100 dark:border-slate-800 justify-between">
+<div class="flex items-center gap-3 min-w-0">
+<div class="text-slate-600 dark:text-slate-300 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 shrink-0 size-10">
+<span class="material-symbols-outlined" style="font-size: 20px;">water_drop</span>
+</div>
+<div class="flex flex-col min-w-0">
+<p class="text-sm font-semibold truncate">Filtración en cochera 12</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">Reportado hace 2 días</p>
+</div>
+</div>
+<div class="shrink-0 flex items-center gap-2">
+<span class="text-xs font-medium text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/30 px-2 py-1 rounded-full">En revisión</span>
+</div>
+</div>
+<!-- Incident 2 -->
+<div class="flex items-center gap-4 p-4 justify-between">
+<div class="flex items-center gap-3 min-w-0">
+<div class="text-slate-600 dark:text-slate-300 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 shrink-0 size-10">
+<span class="material-symbols-outlined" style="font-size: 20px;">elevator</span>
+</div>
+<div class="flex flex-col min-w-0">
+<p class="text-sm font-semibold truncate">Ascensor Torre B trabado</p>
+<p class="text-xs text-slate-500 dark:text-slate-400">Reportado hace 5 días</p>
+</div>
+</div>
+<div class="shrink-0 flex items-center gap-2">
+<span class="text-xs font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 px-2 py-1 rounded-full">Resuelto</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Floating Action Button (AI Secretary) -->
+<button class="fixed bottom-20 right-4 size-14 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-full flex items-center justify-center shadow-lg shadow-slate-900/20 z-20 hover:scale-105 transition-transform">
+<span class="material-symbols-outlined" style="font-size: 28px;">smart_toy</span>
+</button>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 w-full flex gap-2 border-t border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-4 pb-safe pt-2 z-10" style="padding-bottom: env(safe-area-inset-bottom, 12px);">
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-primary" href="#">
+<div class="flex h-8 items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+</div>
+<p class="text-[10px] font-medium leading-none">Inicio</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors" href="#">
+<div class="flex h-8 items-center justify-center">
+<span class="material-symbols-outlined">report_problem</span>
+</div>
+<p class="text-[10px] font-medium leading-none">Incidentes</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors" href="#">
+<div class="flex h-8 items-center justify-center">
+<span class="material-symbols-outlined">calendar_month</span>
+</div>
+<p class="text-[10px] font-medium leading-none">Reservas</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 transition-colors" href="#">
+<div class="flex h-8 items-center justify-center">
+<span class="material-symbols-outlined">more_horiz</span>
+</div>
+<p class="text-[10px] font-medium leading-none">Más</p>
+</a>
+</nav>
+<style>
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .pb-safe {
+            padding-bottom: max(12px, env(safe-area-inset-bottom));
+        }
+    </style>
+</body></html>

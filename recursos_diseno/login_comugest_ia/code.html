@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Login ComuGest IA</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#3c3cf6",
+                        "background-light": "#f5f5f8",
+                        "background-dark": "#101022",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden max-w-[480px] mx-auto bg-background-light dark:bg-background-dark shadow-xl">
+<div class="flex items-center p-4 pb-2 justify-center">
+<h2 class="text-primary text-xl font-bold leading-tight tracking-tight flex items-center gap-2">
+<span class="material-symbols-outlined fill-current">domain</span>
+                ComuGest IA
+            </h2>
+</div>
+<div class="px-4 py-2">
+<div class="w-full bg-center bg-no-repeat bg-cover flex flex-col justify-end overflow-hidden rounded-xl min-h-[160px] shadow-sm" data-alt="Modern building facade abstract" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDGWN88K-r007HiBAhWxPB7sw2l_gRzNRshEup24pF2trsZUjwf7QTp8ASBQ6vj8fqb3Wzh-dy0dMQpNN-0Lk26CPMCEhB6VtWegLRZ_9pW8OJ2v4ylU3Ch0NuNNSon1czgny-QTnbmtBSuuzGOlEnAEJkVwgv7iCQsCO4aUPSqHP9-_Me9C-MuxCf66PGUZOg89ZNffdplG9Eu_me6I0Y_ylllmKu0bpvKg7ifbSYQomj2PE6wX9FJf8hH4ZfmtgskswpTINShRqVT");'></div>
+</div>
+<div class="px-4 pt-6 pb-2 text-center">
+<h1 class="text-2xl font-bold leading-tight tracking-tight mb-2">Iniciar sesión</h1>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-relaxed px-2">
+                Gestiona incidencias y reservas en tu comunidad de forma sencilla y eficiente.
+            </p>
+</div>
+<div class="px-4 py-4 flex-1">
+<div class="bg-white dark:bg-slate-800/50 rounded-xl shadow-sm p-6 border border-slate-100 dark:border-slate-700/50">
+<form class="flex flex-col gap-5">
+<label class="flex flex-col gap-2">
+<span class="text-sm font-semibold text-slate-700 dark:text-slate-300">Email o Teléfono</span>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">person</span>
+<input class="form-input flex w-full resize-none rounded-lg text-slate-900 dark:text-slate-100 focus:outline-0 focus:ring-2 focus:ring-primary/20 border border-slate-200 dark:border-slate-600 bg-background-light dark:bg-slate-900 focus:border-primary h-12 pl-10 pr-4 text-base placeholder:text-slate-400 transition-colors" placeholder="Introduce tu email o teléfono" type="text"/>
+</div>
+</label>
+<label class="flex flex-col gap-2">
+<span class="text-sm font-semibold text-slate-700 dark:text-slate-300">Código de Comunidad</span>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">vpn_key</span>
+<input class="form-input flex w-full resize-none rounded-lg text-slate-900 dark:text-slate-100 focus:outline-0 focus:ring-2 focus:ring-primary/20 border border-slate-200 dark:border-slate-600 bg-background-light dark:bg-slate-900 focus:border-primary h-12 pl-10 pr-4 text-base placeholder:text-slate-400 transition-colors" placeholder="Ej: COM-1234" type="text"/>
+</div>
+</label>
+<button class="mt-4 flex items-center justify-center w-full h-12 bg-primary hover:bg-primary/90 text-white rounded-lg font-semibold text-base transition-colors shadow-sm shadow-primary/30" type="button">
+                        Entrar
+                    </button>
+</form>
+</div>
+</div>
+<div class="pb-8 pt-4 text-center">
+<a class="text-primary text-sm font-medium hover:underline" href="#">¿Necesitas ayuda para acceder?</a>
+</div>
+</div>
+</body></html>
